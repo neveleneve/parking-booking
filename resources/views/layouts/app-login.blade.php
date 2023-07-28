@@ -8,12 +8,13 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @yield('custom-css')
 </head>
 
 <body>
     <header class="bg-dark text-white p-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-0 h4"> {{ config('app.name', 'Laravel') }}</h1>
+            <h1 class="m-0 h4 fw-bold"> {{ config('app.name', 'Laravel') }}</h1>
             <div class="dropdown">
                 @guest
                     <button class="btn btn-dark dropdown-toggle d-none d-lg-inline" type="button" id="dropdownMenuButton"
@@ -47,9 +48,15 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="d-none d-lg-inline">
-                            <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                            <a href="{{ route('landing-page') }}" class="dropdown-item">
                                 <i class="fas fa-home"></i>
                                 Home
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                                <i class="fas fa-tacometer"></i>
+                                Dashboard
                             </a>
                         </li>
                         <li class="d-none d-lg-inline">
@@ -109,9 +116,15 @@
                     </li>
                 @else
                     <li class="nav-item">
+                        <a href="{{ route('landing-page') }}" title="Dashboard"
+                            class="nav-link text-white {{ Request::is('/') ? 'active' : null }}">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('dashboard.index') }}" title="Dashboard"
                             class="nav-link text-white {{ Request::is('dashboard*') ? 'active' : null }}">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-tachometer-alt"></i>
                         </a>
                     </li>
                     <li class="nav-item">
