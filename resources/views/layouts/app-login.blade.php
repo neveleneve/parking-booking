@@ -13,54 +13,126 @@
 <body>
     <header class="bg-dark text-white p-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-0 h4"> {{ config('app.name', 'Laravel') }}
-            </h1>
+            <h1 class="m-0 h4"> {{ config('app.name', 'Laravel') }}</h1>
             <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-sign-out-alt me-2"></i>
-                            Logout
-                        </a>
-                    </li>
-                </ul>
+                @guest
+                    <button class="btn btn-dark dropdown-toggle d-none d-lg-inline" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('landing-page') }}" class="dropdown-item">
+                                <i class="fas fa-home"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('login') }}" class="dropdown-item">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Login
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('register') }}" class="dropdown-item">
+                                <i class="fas fa-user-plus"></i>
+                                Register
+                            </a>
+                        </li>
+                    </ul>
+                @else
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                                <i class="fas fa-home"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-receipt"></i>
+                                Transaksi
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                Profil
+                            </a>
+                        </li>
+                        <div class="d-none d-lg-inline">
+                            <div class="dropdown-divider"></div>
+                        </div>
+                        <li>
+                            <a class="dropdown-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                @endguest
             </div>
         </div>
     </header>
 
     @yield('content')
 
-    <footer class="fixed-bottom bg-dark text-white p-3">
+    <footer class="fixed-bottom bg-dark text-white p-3 d-inline d-lg-none">
         <div class="container">
             <ul class="nav footer-menu justify-content-center">
-                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link text-white active" title="Dashboard">
-                        <i class="fas fa-home"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-white" title="Transaksi Saya">
-                        <i class="fas fa-receipt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-white" title="Profil Saya">
-                        <i class="fas fa-user"></i>
-                    </a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a href="{{ route('landing-page') }}" title="Dashboard"
+                            class="nav-link text-white {{ Request::is('/') ? 'active' : null }}">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" title="Log In"
+                            class="nav-link text-white {{ Request::is('login') ? 'active' : null }}">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" title="Register"
+                            class="nav-link text-white {{ Request::is('register') ? 'active' : null }}">
+                            <i class="fas fa-user-plus"></i>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.index') }}" title="Dashboard"
+                            class="nav-link text-white {{ Request::is('dashboard*') ? 'active' : null }}">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.index') }}" title="Transaksi Saya"
+                            class="nav-link text-white {{ Request::is('transaksi*') ? 'active' : null }}">
+                            <i class="fas fa-receipt"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profil.index') }}" title="Profil Saya"
+                            class="nav-link text-white {{ Request::is('profil*') ? 'active' : null }}">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                @endguest
             </ul>
         </div>
     </footer>
-
-    <!-- Link to Bootstrap JS (Optional) -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Link to Font Awesome JS (Optional) -->
     <script src="{{ asset('fontawesome/css/all.css') }}"></script>
 </body>
 
