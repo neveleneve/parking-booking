@@ -1,22 +1,20 @@
 @extends('layouts.app-login')
 
 @section('content')
-    <div class="content-container">
-        <div class="content">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">Confirm Top Up</div>
+    <div class="content">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Confirm Top Up</div>
 
-                        <div class="card-body">
-                            <p><strong>Order ID :</strong> {{ $data['order_id'] }}</p>
-                            <p><strong>Total Top Up : </strong>Rp {{ number_format($data['gross_amount'], 2, ',', '.') }}
-                            </p>
+                    <div class="card-body">
+                        <p><strong>Order ID :</strong> {{ $data['order_id'] }}</p>
+                        <p><strong>Total Top Up : </strong>Rp {{ number_format($data['gross_amount'], 2, ',', '.') }}
+                        </p>
 
-                            <div id="snapToken" data-snap-token="{{ $snapToken }}"></div>
+                        <div id="snapToken" data-snap-token="{{ $snapToken }}"></div>
 
-                            <button id="pay-button" class="btn btn-primary">Pay Now</button>
-                        </div>
+                        <button id="pay-button" class="btn btn-primary">Pay Now</button>
                     </div>
                 </div>
             </div>
