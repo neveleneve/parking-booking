@@ -9,9 +9,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::check()) {
-            # code...
-        }
         return view('welcome');
     }
 }

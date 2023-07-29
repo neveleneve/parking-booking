@@ -5,14 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Slot extends Model
+class Saldo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama',
-        'token',
-        'status',
-        'latest_book',
+        'user_id',
+        'credit',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

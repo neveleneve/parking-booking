@@ -13,7 +13,7 @@
                             <h3 class="text-center fw-bold">Rp 50.000</h3>
                             <div class="row">
                                 <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-sm btn-dark fw-bold">
+                                    <button class="btn btn-sm btn-outline-dark fw-bold">
                                         Top Up Saldo
                                     </button>
                                 </div>

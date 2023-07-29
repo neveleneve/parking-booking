@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App-like Navigation</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -55,12 +55,26 @@
                         </li>
                         <li class="d-none d-lg-inline">
                             <a href="{{ route('dashboard.index') }}" class="dropdown-item">
-                                <i class="fas fa-tacometer"></i>
+                                <i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </a>
                         </li>
+                        @if (Auth::user()->level == '0')
+                            <li class="d-none d-lg-inline">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-parking"></i>
+                                    Slot Parkir
+                                </a>
+                            </li>
+                        @endif
                         <li class="d-none d-lg-inline">
-                            <a href="#" class="dropdown-item">
+                            <a href="{{ route('payments.index') }}" class="dropdown-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                Pembayaran
+                            </a>
+                        </li>
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ route('transaksi.index') }}" class="dropdown-item">
                                 <i class="fas fa-receipt"></i>
                                 Transaksi
                             </a>
@@ -116,7 +130,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="{{ route('landing-page') }}" title="Dashboard"
+                        <a href="{{ route('landing-page') }}" title="Home"
                             class="nav-link text-white {{ Request::is('/') ? 'active' : null }}">
                             <i class="fas fa-home"></i>
                         </a>
@@ -127,14 +141,28 @@
                             <i class="fas fa-tachometer-alt"></i>
                         </a>
                     </li>
+                    @if (Auth::user()->level == '0')
+                        <li class="nav-item">
+                            <a href="{{ route('slot.index') }}" title="Slot Parkir"
+                                class="nav-link text-white {{ Request::is('slot*') ? 'active' : null }}">
+                                <i class="fas fa-parking"></i>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
-                        <a href="{{ route('transaksi.index') }}" title="Transaksi Saya"
+                        <a href="{{ route('payments.index') }}" title="Pembayaran"
+                            class="nav-link text-white {{ Request::is('payments*') || Request::is('top-up*') ? 'active' : null }}">
+                            <i class="fas fa-dollar-sign"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.index') }}" title="Transaksi"
                             class="nav-link text-white {{ Request::is('transaksi*') ? 'active' : null }}">
                             <i class="fas fa-receipt"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profil.index') }}" title="Profil Saya"
+                        <a href="{{ route('profil.index') }}" title="Profil"
                             class="nav-link text-white {{ Request::is('profil*') ? 'active' : null }}">
                             <i class="fas fa-user"></i>
                         </a>
@@ -147,6 +175,7 @@
     <script src="{{ asset('js/popper.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('fontawesome/css/all.css') }}"></script>
+    @stack('custom-js')
 </body>
 
 </html>

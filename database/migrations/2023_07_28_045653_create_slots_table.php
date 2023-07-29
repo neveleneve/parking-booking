@@ -17,7 +17,8 @@ class CreateSlotsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('token');
-            $table->enum('status', [0, 1, 2, 3, 4, 5, 6, 7]);
+            $table->enum('status', [0, 1, 2, 3, 4, 5, 6, 7])->default('0');
+            $table->dateTime('latest_book')->default(null)->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransaksisTable extends Migration
+class CreateSaldosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTransaksisTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('saldos', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_transaksi');
             $table->integer('user_id');
-            $table->integer('slot_id');
-            $table->enum('status_pembayaran', [0, 1]);
-            $table->enum('status_pakai', [0, 1, 2, 3, 4]);
+            $table->float('credit')->default(0.0);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTransaksisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaksis');
+        Schema::dropIfExists('saldos');
     }
 }

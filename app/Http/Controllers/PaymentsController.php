@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class PaymentsController extends Controller
 {
     public function __construct()
     {
@@ -15,15 +15,14 @@ class DashboardController extends Controller
 
     public function index()
     {
-
         if (Auth::user()->level == '0') {
-            return view('authenticate.dashboard.admin.index');
+            $data = Pembayaran::get();
         } elseif (Auth::user()->level == '1') {
-            $data = User::with('saldo')->find(Auth::user()->id);
-            return view('authenticate.dashboard.customer.index', [
-                'data' => $data
-            ]);
+            $data = Pembayaran::where('user_id', Auth::user()->id)->get();
         }
+        return view('authenticate.payments.index', [
+            'data' => $data
+        ]);
     }
 
     public function create()

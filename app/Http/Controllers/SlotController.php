@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Slot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class SlotController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     public function index()
     {
-
-        if (Auth::user()->level == '0') {
-            return view('authenticate.dashboard.admin.index');
-        } elseif (Auth::user()->level == '1') {
-            $data = User::with('saldo')->find(Auth::user()->id);
-            return view('authenticate.dashboard.customer.index', [
-                'data' => $data
-            ]);
-        }
+        $data = Slot::get();
+        return view('admin.slot.index', [
+            'data' => $data
+        ]);
     }
 
     public function create()
