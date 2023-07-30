@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembayaran;
+use App\Models\Saldo;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Transaction;
 
 class TopUpController extends Controller
 {
@@ -25,12 +28,16 @@ class TopUpController extends Controller
         ]);
 
         $transactionDetails = [
-            'order_id' => uniqid(),
+            'order_id' => uniqid() . $this->randomString(5),
             'gross_amount' => $request->total,
         ];
 
         $snapToken = Snap::getSnapToken([
-            'transaction_details' => $transactionDetails
+            'transaction_details' => $transactionDetails,
+            "customer_details" => [
+                "first_name" => Auth::user()->name,
+                "email" => Auth::user()->email,
+            ]
         ]);
 
         Pembayaran::create([
@@ -51,7 +58,53 @@ class TopUpController extends Controller
 
     public function paymentFinish(Request $request)
     {
-        dd($request->all());
+        $statusResponse = Transaction::status($request->order_id);
+        try {
+            $paymentStatus = $statusResponse->transaction_status;
+            if ($statusResponse->status_code == '200') {
+                if ($paymentStatus === 'capture' || $paymentStatus === 'settlement') {
+                    $data = Pembayaran::where('order_id', $request->order_id)->first();
+                    if ($data->status != 3) {
+                        Pembayaran::where('order_id', $request->order_id)
+                            ->update([
+                                'status' => '3',
+                                'status_code' => $statusResponse->status_code,
+                                'transaction_status' => $statusResponse->transaction_status,
+                            ]);
+                        Saldo::where('user_id', Auth::user()->id)->increment('credit', $data->nominal);
+                    }
+                    return view('authenticate.payments.finish');
+                } elseif ($paymentStatus === 'pending') {
+                    Pembayaran::where('order_id', $request->order_id)
+                        ->update([
+                            'status' => '1',
+                            'status_code' => $request->status_code,
+                            'transaction_status' => $request->transaction_status,
+                        ]);
+                } else {
+                    Pembayaran::where('order_id', $request->order_id)
+                        ->update([
+                            'status' => '1',
+                            'status_code' => $request->status_code,
+                            'transaction_status' => $request->transaction_status,
+                        ]);
+                }
+            } else {
+                Pembayaran::where('order_id', $request->order_id)
+                    ->update([
+                        'status' => '1',
+                        'status_code' => $statusResponse->status_code,
+                        'transaction_status' => $statusResponse->transaction_status,
+                    ]);
+                return redirect(route('payments.index'))->with([
+                    'alert' => 'Berhasil membatalkan top up!',
+                    'color' => 'success',
+                ]);
+            }
+        } catch (Exception $e) {
+            dd([5, $e]);
+            // echo 'Error: ' . $e->getMessage();
+        }
     }
 
     public function paymentUnfinish(Request $request)
@@ -62,5 +115,25 @@ class TopUpController extends Controller
     public function paymentError(Request $request)
     {
         dd($request->all());
+    }
+
+    public function paymentCancellation(Request $request)
+    {
+        Pembayaran::where('order_id', $request->order_id)->delete();
+        return redirect(route('payments.index'))->with([
+            'alert' => 'Berhasil membatalkan top up!',
+            'color' => 'success',
+        ]);
+    }
+
+    public function randomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = rand(0, strlen($characters) - 1);
+            $string .= $characters[$randomIndex];
+        }
+        return $string;
     }
 }
