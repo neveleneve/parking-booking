@@ -14,26 +14,13 @@ class SlotSeeder extends Seeder
      */
     public function run()
     {
-        Slot::create([
-            'nama' => 'Parkir A110 Lantai Bawah',
-            'token' => $this->randomString(10),
-            'status' => '0',
-        ]);
-        Slot::create([
-            'nama' => 'Parkir A120 Lantai Bawah',
-            'token' => $this->randomString(10),
-            'status' => '0',
-        ]);
-    }
-
-    public function randomString($length = 10)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomIndex = rand(0, strlen($characters) - 1);
-            $string .= $characters[$randomIndex];
+        for ($i = 1; $i <= 10; $i++) {
+            $rand = rand(0, 1);
+            Slot::create([
+                'name' => 'Slot ' . $i,
+                'is_booked' => $rand ? true : false,
+                'booking_date' => $rand ? '2023-07-30' : null,
+            ]);
         }
-        return $string;
     }
 }

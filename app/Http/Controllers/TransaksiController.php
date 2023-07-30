@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slot;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,12 +32,15 @@ class TransaksiController extends Controller
 
     public function create()
     {
-        //
+        $slotParkir = Slot::all();
+        return view('authenticate.transaksi.create', [
+            'slot' => $slotParkir
+        ]);
     }
 
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     public function show($id)

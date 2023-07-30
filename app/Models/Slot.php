@@ -10,9 +10,8 @@ class Slot extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama',
-        'token',
-        'status',
-        'latest_book',
+        'name',
+        'is_booked',
+        'booking_date',
     ];
 }

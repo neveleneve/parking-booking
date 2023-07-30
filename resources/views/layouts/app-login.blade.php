@@ -8,7 +8,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    @yield('custom-css')
+    @stack('custom-css')
     <style>
         body {
             margin: 0;
@@ -201,9 +201,8 @@
         </div>
     </footer>
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/popper.js') }}"></script>
+    {{-- <script src="{{ asset('js/popper.js') }}"></script> --}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('fontawesome/css/all.css') }}"></script>
     @stack('custom-js')
     <script>
         let startY, lastY;

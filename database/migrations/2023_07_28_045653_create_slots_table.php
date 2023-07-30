@@ -15,10 +15,9 @@ class CreateSlotsTable extends Migration
     {
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('token');
-            $table->enum('status', [0, 1, 2, 3, 4, 5, 6, 7])->default('0');
-            $table->dateTime('latest_book')->default(null)->nullable();
+            $table->string('name');
+            $table->boolean('is_booked')->default(false);
+            $table->date('booking_date')->nullable();
             $table->timestamps();
         });
     }
