@@ -16,7 +16,7 @@ class CreateSaldosTable extends Migration
         Schema::create('saldos', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->float('credit')->default(0.0);
+            $table->float('credit')->default(0.0)->nullable();
             $table->timestamps();
         });
     }

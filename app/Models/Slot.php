@@ -11,7 +11,14 @@ class Slot extends Model
 
     protected $fillable = [
         'name',
+        'token',
         'is_booked',
         'booking_date',
+        'status_pakai',
     ];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

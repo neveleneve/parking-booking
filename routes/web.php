@@ -25,6 +25,8 @@ Route::middleware(['admin'])->group(function () {
 
 Route::middleware(['customer'])->group(function () {
     Route::post('top-up', [TopUpController::class, 'index'])->name('topup.index');
+    Route::get('transaksis/{id}/control', [TopUpController::class, 'control'])->name('transaksi.control');
+    Route::post('transaksis/control/update', [TopUpController::class, 'controlUpdate'])->name('control.update');
     Route::get('payments/finish', [TopUpController::class, 'paymentFinish'])->name('payment.finish');
     Route::get('payments/unfinish', [TopUpController::class, 'paymentUnfinish'])->name('payment.unfinish');
     Route::get('payments/error', [TopUpController::class, 'paymentError'])->name('payment.error');

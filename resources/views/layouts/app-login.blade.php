@@ -118,7 +118,7 @@
                             <div class="dropdown-divider"></div>
                         </div>
                         <li>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt me-2"></i>
                                 Logout

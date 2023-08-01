@@ -18,8 +18,7 @@ class CreateTransaksisTable extends Migration
             $table->string('kode_transaksi');
             $table->integer('user_id');
             $table->integer('slot_id');
-            $table->enum('status_pembayaran', [0, 1]);
-            $table->enum('status_pakai', [0, 1, 2, 3, 4]);
+            $table->enum('status', [0, 1]);
             $table->timestamps();
         });
     }

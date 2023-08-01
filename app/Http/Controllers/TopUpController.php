@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembayaran;
 use App\Models\Saldo;
+use App\Models\Slot;
+use App\Models\Transaksi;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction;
@@ -115,6 +118,73 @@ class TopUpController extends Controller
     public function paymentError(Request $request)
     {
         dd($request->all());
+    }
+
+    public function control($id)
+    {
+        $transaksi = Transaksi::with('slot')->find($id);
+        return view('authenticate.transaksi.control', [
+            'data' => $transaksi
+        ]);
+    }
+
+    public function controlUpdate(Request $request)
+    {
+        $validasi = Validator::make($request->all(), [
+            'id' => 'required',
+            'kode_transaksi' => 'required',
+            'status_pakai' => 'required',
+        ]);
+        if ($validasi->fails()) {
+            return redirect(route('transaksi.control', ['id' => $request->id]))->with([
+                'alert' => 'Gagal melakukan kendali. Silakan ulangi!',
+                'color' => 'danger',
+            ]);
+        } else {
+            $transaksi = Transaksi::find($request->id);
+            $slot = Slot::find($transaksi->slot_id);
+            $alert = [
+                'alert' => null,
+                'color' => null,
+            ];
+            if ($request->status_pakai == 0) {
+                $slot->update([
+                    'status_pakai' => '1'
+                ]);
+                $alert = [
+                    'alert' => 'Berhasil membuka palang!',
+                    'color' => 'success',
+                ];
+            } elseif ($request->status_pakai == 1) {
+                $slot->update([
+                    'status_pakai' => '2'
+                ]);
+                $alert = [
+                    'alert' => 'Berhasil mennutup palang!',
+                    'color' => 'success',
+                ];
+            } elseif ($request->status_pakai == 2) {
+                $slot->update([
+                    'status_pakai' => '3'
+                ]);
+                $alert = [
+                    'alert' => 'Berhasil membuka palang!',
+                    'color' => 'success',
+                ];
+            } elseif ($request->status_pakai == 3) {
+                $slot->update([
+                    'status_pakai' => '0'
+                ]);
+                $transaksi->update([
+                    'status' => '1'
+                ]);
+                $alert = [
+                    'alert' => 'Berhasil mennutup palang!',
+                    'color' => 'success',
+                ];
+            }
+            return redirect(route('transaksi.control', ['id' => $request->id]))->with($alert);
+        }
     }
 
     public function paymentCancellation(Request $request)

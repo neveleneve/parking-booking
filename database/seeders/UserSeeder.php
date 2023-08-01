@@ -18,16 +18,16 @@ class UserSeeder extends Seeder
     {
         // admin
         User::create([
-            'name' => 'Pandu',
-            'email' => 'pandu@gmail.com',
-            'password' => Hash::make('vdpandu123'),
+            'name' => 'Gerry',
+            'email' => 'gerry@gmail.com',
+            'password' => Hash::make('12345678'),
             'level' => '0',
         ]);
         // customer
         $data = User::create([
-            'name' => 'Pandu',
-            'email' => 'pendu@gmail.com',
-            'password' => Hash::make('vdpandu123'),
+            'name' => 'Gerri',
+            'email' => 'gerri@gmail.com',
+            'password' => Hash::make('12345678'),
             'level' => '1',
         ]);
         Saldo::create([

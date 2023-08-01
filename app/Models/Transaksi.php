@@ -13,7 +13,11 @@ class Transaksi extends Model
         'kode_transaksi',
         'user_id',
         'slot_id',
-        'status_pembayaran',
-        'status_pakai',
+        'status',
     ];
+
+    public function slot()
+    {
+        return $this->belongsTo(Slot::class);
+    }
 }

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="card profile-card shadow">
-                    <div class="profile-image">
+                    <div class="profile-image text-center">
                         <img class="img-fluid" src="{{ asset('image/profile/default.png') }}" alt="Profile Photo">
                     </div>
                     <div class="card-body text-center">

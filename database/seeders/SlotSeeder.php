@@ -14,13 +14,25 @@ class SlotSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            $rand = rand(0, 1);
+        for ($i = 1; $i <= 2; $i++) {
             Slot::create([
                 'name' => 'Slot ' . $i,
-                'is_booked' => $rand ? true : false,
-                'booking_date' => $rand ? '2023-07-30' : null,
+                'token' => $this->randomString(10),
+                'is_booked' => false,
+                'booking_date' => null,
+                'status_pakai' => '0',
             ]);
         }
+    }
+
+    public function randomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomIndex = rand(0, strlen($characters) - 1);
+            $string .= $characters[$randomIndex];
+        }
+        return $string;
     }
 }

@@ -16,8 +16,10 @@ class CreateSlotsTable extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('token');
             $table->boolean('is_booked')->default(false);
-            $table->date('booking_date')->nullable();
+            $table->dateTime('booking_date')->nullable();
+            $table->enum('status_pakai', [0, 1, 2, 3]);
             $table->timestamps();
         });
     }
