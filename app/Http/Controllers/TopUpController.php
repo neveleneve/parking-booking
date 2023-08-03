@@ -159,8 +159,11 @@ class TopUpController extends Controller
                 $slot->update([
                     'status_pakai' => '2'
                 ]);
+                $transaksi->update([
+                    'jam_masuk' => date('Y-m-d H:i:s')
+                ]);
                 $alert = [
-                    'alert' => 'Berhasil mennutup palang!',
+                    'alert' => 'Berhasil menutup palang!',
                     'color' => 'success',
                 ];
             } elseif ($request->status_pakai == 2) {
@@ -173,13 +176,16 @@ class TopUpController extends Controller
                 ];
             } elseif ($request->status_pakai == 3) {
                 $slot->update([
-                    'status_pakai' => '0'
+                    'is_booked' => '0',
+                    'status_pakai' => '0',
+                    'booking_date' => null
                 ]);
                 $transaksi->update([
-                    'status' => '1'
+                    'status' => '1',
+                    'jam_keluar' => date('Y-m-d H:i:s')
                 ]);
                 $alert = [
-                    'alert' => 'Berhasil mennutup palang!',
+                    'alert' => 'Berhasil menutup palang!',
                     'color' => 'success',
                 ];
             }

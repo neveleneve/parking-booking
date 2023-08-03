@@ -28,9 +28,9 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="slot" required
                                                 value="{{ $item->id }}" id="radio{{ $item->id }}"
-                                                {{ $item->is_booked == 0 ? null : 'disabled' }}>
+                                                {{ $item->is_booked == 0 && $item->status == 1 ? null : 'disabled' }}>
                                             <label
-                                                class="form-check-label {{ $item->is_booked == 0 ? 'text-success' : 'text-danger' }}"
+                                                class="form-check-label {{ $item->is_booked == 0 && $item->status == 1 ? 'text-success' : 'text-danger' }}"
                                                 for="radio{{ $item->id }}">
                                                 <i class="fa fa-car"></i> {{ $item->name }}
                                             </label>

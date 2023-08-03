@@ -14,6 +14,8 @@ class Transaksi extends Model
         'user_id',
         'slot_id',
         'status',
+        'jam_masuk',
+        'jam_keluar',
     ];
 
     public function slot()

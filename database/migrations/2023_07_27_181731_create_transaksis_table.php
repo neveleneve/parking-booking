@@ -19,6 +19,8 @@ class CreateTransaksisTable extends Migration
             $table->integer('user_id');
             $table->integer('slot_id');
             $table->enum('status', [0, 1]);
+            $table->dateTime('jam_masuk')->nullable()->default(null);
+            $table->dateTime('jam_keluar')->nullable()->default(null);
             $table->timestamps();
         });
     }

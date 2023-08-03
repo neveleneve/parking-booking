@@ -56,7 +56,6 @@ class TransaksiController extends Controller
                 'color' => 'danger',
             ]);
         } else {
-            // cek slot. bila ada proses dari user lain sudah memesan slot sebelum user ybs.
             $slot = Slot::find($request->slot);
             if ($slot->is_booked) {
                 return redirect(route('transaksi.create'))->with([
@@ -64,6 +63,13 @@ class TransaksiController extends Controller
                     'color' => 'danger',
                 ]);
             }
+            if (!$slot->status) {
+                return redirect(route('transaksi.create'))->with([
+                    'alert' => $slot->name . ' sedang tidak aktif. Silakan pesan slot lain yang aktif!',
+                    'color' => 'danger',
+                ]);
+            }
+
             $slot->update([
                 'is_booked' => true,
                 'booking_date' => date('Y-m-d H:i:s', strtotime($request->tanggal)),

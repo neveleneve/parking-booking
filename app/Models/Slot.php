@@ -15,6 +15,7 @@ class Slot extends Model
         'is_booked',
         'booking_date',
         'status_pakai',
+        'status',
     ];
 
     public function transaksi()

@@ -13,8 +13,8 @@ class ParkingSlotController extends Controller
         if ($request->token == $slot->token) {
             return response()->json([
                 'message' => 'Data received successfully',
-                'data' => $slot,
-            ], 201);
+                'data' => (int) $slot->status_pakai,
+            ], 200);
         } else {
             return response()->json([
                 'message' => 'Data failed to receive',

@@ -21,6 +21,7 @@ class SlotSeeder extends Seeder
                 'is_booked' => false,
                 'booking_date' => null,
                 'status_pakai' => '0',
+                'status' => $i == 2 ? '0' : '1',
             ]);
         }
     }
