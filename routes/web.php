@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TopUpController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,17 +23,18 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::middleware(['customer'])->group(function () {
-    Route::post('top-up', [TopUpController::class, 'index'])->name('topup.index');
-    Route::get('transaksis/{id}/control', [TopUpController::class, 'control'])->name('transaksi.control');
-    Route::post('transaksis/control/update', [TopUpController::class, 'controlUpdate'])->name('control.update');
-    Route::get('payments/finish', [TopUpController::class, 'paymentFinish'])->name('payment.finish');
-    Route::get('payments/unfinish', [TopUpController::class, 'paymentUnfinish'])->name('payment.unfinish');
-    Route::get('payments/error', [TopUpController::class, 'paymentError'])->name('payment.error');
-    Route::post('payments/cancel', [TopUpController::class, 'paymentCancellation'])->name('payment.cancel');
+    Route::post('top-up', [\App\Http\Controllers\TopUpController::class, 'index'])->name('topup.index');
+    Route::get('transaksis/{id}/control', [\App\Http\Controllers\TopUpController::class, 'control'])->name('transaksi.control');
+    Route::post('transaksis/control/update', [\App\Http\Controllers\TopUpController::class, 'controlUpdate'])->name('control.update');
+    Route::get('payments/finish', [\App\Http\Controllers\TopUpController::class, 'paymentFinish'])->name('payment.finish');
+    Route::get('payments/unfinish', [\App\Http\Controllers\TopUpController::class, 'paymentUnfinish'])->name('payment.unfinish');
+    Route::get('payments/error', [\App\Http\Controllers\TopUpController::class, 'paymentError'])->name('payment.error');
+    Route::post('payments/cancel', [\App\Http\Controllers\TopUpController::class, 'paymentCancellation'])->name('payment.cancel');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', \App\Http\Controllers\DashboardController::class);
+    Route::resource('slot', \App\Http\Controllers\SlotController::class);
     Route::resource('transaksi', \App\Http\Controllers\TransaksiController::class);
     Route::resource('profil', \App\Http\Controllers\ProfilController::class);
     Route::resource('payments', \App\Http\Controllers\PaymentsController::class);

@@ -39,7 +39,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    @if ($item->status == 0)
+                                    @if ($item->status == 0 && $item)
                                         <a class="btn btn-sm btn-outline-dark" title="Kontrol Slot Parkir"
                                             href="{{ route('transaksi.control', ['id' => $item->id]) }}">
                                             <i class="fa fa-gamepad"></i>

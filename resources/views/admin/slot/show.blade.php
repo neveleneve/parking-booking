@@ -42,6 +42,18 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            {{-- <label for="status" class="form-label fw-bold">Status</label> --}}
+                            <div class="col-12 gap-2 d-grid">
+                                <input type="submit" class="btn btn-sm btn-outline-dark fw-bold" value="Perbarui">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            {{-- <label for="status" class="form-label fw-bold">Status</label> --}}
+                            <div class="col-12 gap-2 d-grid">
+                                <input type="button" class="btn btn-sm btn-outline-danger fw-bold" value="Kembali">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

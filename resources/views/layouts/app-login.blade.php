@@ -90,7 +90,7 @@
                         </li>
                         @if (Auth::user()->level == '0')
                             <li class="d-none d-lg-inline">
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('slot.index') }}" class="dropdown-item">
                                     <i class="fas fa-parking"></i>
                                     Slot Parkir
                                 </a>
