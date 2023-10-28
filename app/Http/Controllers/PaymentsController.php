@@ -19,7 +19,7 @@ class PaymentsController extends Controller {
 
     public function index() {
         if (Auth::user()->level == '0') {
-            $data = Pembayaran::get();
+            $data = Pembayaran::with('user')->get();
         } elseif (Auth::user()->level == '1') {
             $data = Pembayaran::where('user_id', Auth::user()->id)
                 ->get();

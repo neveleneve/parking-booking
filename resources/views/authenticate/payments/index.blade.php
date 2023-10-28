@@ -18,6 +18,9 @@
                             <tr>
                                 <th class="d-none d-lg-table-cell">#</th>
                                 <th>Order ID</th>
+                                @if (Auth::user()->level == 0)
+                                    <th>Nama</th>
+                                @endif
                                 <th>Nominal</th>
                                 <th class="d-none d-lg-table-cell">Status</th>
                                 <th></th>
@@ -28,6 +31,9 @@
                                 <tr>
                                     <td class="d-none d-lg-table-cell">{{ $loop->index + 1 }}</td>
                                     <td>{{ $item->order_id }}</td>
+                                    @if (Auth::user()->level == 0)
+                                        <td>{{ $item->user->name }}</td>
+                                    @endif
                                     <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
                                     <td class="d-none d-lg-table-cell">
                                         @if ($item->status == '0')
