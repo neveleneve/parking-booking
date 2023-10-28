@@ -38,11 +38,12 @@
             }
         }
     </style>
+    @stack('livewire-style')
 </head>
 
 <body>
     <header class="bg-dark text-white p-3">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container-fluid container-lg d-flex justify-content-between align-items-center">
             <h1 class="m-0 h4 fw-bold"> {{ config('app.name', 'Laravel') }}</h1>
             <div class="dropdown">
                 @guest
@@ -76,47 +77,6 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li class="d-none d-lg-inline">
-                            <a href="{{ route('landing-page') }}" class="dropdown-item">
-                                <i class="fas fa-home"></i>
-                                Home
-                            </a>
-                        </li>
-                        <li class="d-none d-lg-inline">
-                            <a href="{{ route('dashboard.index') }}" class="dropdown-item">
-                                <i class="fas fa-tachometer-alt"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        @if (Auth::user()->level == '0')
-                            <li class="d-none d-lg-inline">
-                                <a href="{{ route('slot.index') }}" class="dropdown-item">
-                                    <i class="fas fa-parking"></i>
-                                    Slot Parkir
-                                </a>
-                            </li>
-                        @endif
-                        <li class="d-none d-lg-inline">
-                            <a href="{{ route('payments.index') }}" class="dropdown-item">
-                                <i class="fas fa-dollar-sign"></i>
-                                Pembayaran
-                            </a>
-                        </li>
-                        <li class="d-none d-lg-inline">
-                            <a href="{{ route('transaksi.index') }}" class="dropdown-item">
-                                <i class="fas fa-receipt"></i>
-                                Transaksi
-                            </a>
-                        </li>
-                        <li class="d-none d-lg-inline">
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-user"></i>
-                                Profil
-                            </a>
-                        </li>
-                        <div class="d-none d-lg-inline">
-                            <div class="dropdown-divider"></div>
-                        </div>
                         <li>
                             <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -133,6 +93,7 @@
         </div>
     </header>
     <div class="content-container" id="contentContainer">
+        @include('sweetalert::alert')
         @yield('content')
     </div>
     <footer class="fixed-bottom bg-dark text-white p-3 d-inline d-lg-none">
@@ -234,6 +195,7 @@
             }
         });
     </script>
+    @stack('livewire-script')
 </body>
 
 </html>

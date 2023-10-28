@@ -2,20 +2,13 @@
 
 @section('content')
     <div class="content">
+        @include('layouts.navtab')
         <div class="row justify-content-center">
             @if (Auth::user()->level == '1')
                 <div class="col-12 col-lg-8 d-grid gap-2 mb-3">
                     <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalTopUp">
                         Top Up Saldo
                     </button>
-                </div>
-            @endif
-            @if (Session::has('alert'))
-                <div class="col-12 col-lg-8">
-                    <div class="alert alert-{{ session('color') }} alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ session('alert') }}
-                    </div>
                 </div>
             @endif
             <div class="col-12 col-lg-8 mb-3">

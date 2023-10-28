@@ -24,8 +24,10 @@ Route::middleware(['admin'])->group(function () {
 
 Route::middleware(['customer'])->group(function () {
     Route::post('top-up', [\App\Http\Controllers\TopUpController::class, 'index'])->name('topup.index');
+
     Route::get('transaksis/{id}/control', [\App\Http\Controllers\TopUpController::class, 'control'])->name('transaksi.control');
     Route::post('transaksis/control/update', [\App\Http\Controllers\TopUpController::class, 'controlUpdate'])->name('control.update');
+
     Route::get('payments/finish', [\App\Http\Controllers\TopUpController::class, 'paymentFinish'])->name('payment.finish');
     Route::get('payments/unfinish', [\App\Http\Controllers\TopUpController::class, 'paymentUnfinish'])->name('payment.unfinish');
     Route::get('payments/error', [\App\Http\Controllers\TopUpController::class, 'paymentError'])->name('payment.error');
@@ -34,7 +36,6 @@ Route::middleware(['customer'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', \App\Http\Controllers\DashboardController::class);
-    Route::resource('slot', \App\Http\Controllers\SlotController::class);
     Route::resource('transaksi', \App\Http\Controllers\TransaksiController::class);
     Route::resource('profil', \App\Http\Controllers\ProfilController::class);
     Route::resource('payments', \App\Http\Controllers\PaymentsController::class);

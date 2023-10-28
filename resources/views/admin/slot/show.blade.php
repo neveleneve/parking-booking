@@ -1,16 +1,16 @@
 @extends('layouts.app-login')
 
+@push('livewire-style')
+    @livewireStyles
+@endpush
+
+@push('livewire-script')
+    @livewireScripts
+@endpush
+
 @section('content')
     <div class="content">
         <div class="row justify-content-center">
-            @if (Session::has('alert'))
-                <div class="col-12 col-lg-8">
-                    <div class="alert alert-{{ session('color') }} alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ session('alert') }}
-                    </div>
-                </div>
-            @endif
             <div class="col-12 col-lg-8 mb-3">
                 <div class="card">
                     <div class="card-header text-bg-dark">
@@ -18,7 +18,9 @@
                             Data Slot Parkir
                         </h4>
                     </div>
-                    <div class="card-body">
+                    <form class="card-body" action="{{ route('slot.update', ['slot' => $data->id]) }}" method="POST">
+                        @method('put')
+                        @csrf
                         <div class="mb-3 row">
                             <label for="nama" class="form-label fw-bold">Nama</label>
                             <div class="col-12">
@@ -26,13 +28,8 @@
                                     value="{{ $data->name }}">
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="token" class="form-label fw-bold">Token</label>
-                            <div class="col-12">
-                                <input type="text" name="token" id="token" class="form-control form-control-sm"
-                                    value="{{ $data->token }}">
-                            </div>
-                        </div>
+                        <label for="token" class="form-label fw-bold">Token</label>
+                        @livewire('token-generate', ['ids' => $data->id])
                         <div class="mb-3 row">
                             <label for="status" class="form-label fw-bold">Status</label>
                             <div class="col-12">
@@ -43,18 +40,18 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            {{-- <label for="status" class="form-label fw-bold">Status</label> --}}
                             <div class="col-12 gap-2 d-grid">
                                 <input type="submit" class="btn btn-sm btn-outline-dark fw-bold" value="Perbarui">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            {{-- <label for="status" class="form-label fw-bold">Status</label> --}}
                             <div class="col-12 gap-2 d-grid">
-                                <input type="button" class="btn btn-sm btn-outline-danger fw-bold" value="Kembali">
+                                <a href="{{ route('slot.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
+                                    Kembali
+                                </a>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

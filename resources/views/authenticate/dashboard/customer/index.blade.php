@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content">
+        @include('layouts.navtab')
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8 mb-3">
                 <div class="card">

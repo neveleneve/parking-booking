@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content">
+        @include('layouts.navtab')
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="card profile-card shadow">

@@ -2,20 +2,13 @@
 
 @section('content')
     <div class="content">
+        @include('layouts.navtab')
         <div class="row justify-content-center">
             @if (Auth::user()->level == '1')
                 <div class="col-12 col-lg-8 mb-3 d-grid gap-2">
                     <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-outline-dark fw-bold">
                         Booking Slot Parkir
                     </a>
-                </div>
-            @endif
-            @if (Session::has('alert'))
-                <div class="col-12 col-lg-8">
-                    <div class="alert alert-{{ session('color') }} alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ session('alert') }}
-                    </div>
                 </div>
             @endif
             <div class="col-12 col-lg-8 mb-3">
@@ -39,22 +32,32 @@
                                     </span>
                                 </td>
                                 <td>
-                                    @if ($item->status == 0 && $item)
-                                        <a class="btn btn-sm btn-outline-dark" title="Kontrol Slot Parkir"
-                                            href="{{ route('transaksi.control', ['id' => $item->id]) }}">
-                                            <i class="fa fa-gamepad"></i>
-                                            <span class="d-none d-lg-inline-block">
-                                                Kontrol Slot Parkir
-                                            </span>
+                                    @if (Auth::user()->level == 1)
+                                        @if ($item->status == 0 && $item)
+                                            <a class="btn btn-sm btn-outline-dark fw-bold" title="Kontrol Slot Parkir"
+                                                href="{{ route('transaksi.control', ['id' => $item->id]) }}">
+                                                <i class="fa fa-gamepad"></i>
+                                                {{-- <span class="d-none d-lg-inline-block">
+                                                    Kontrol Slot Parkir
+                                                </span> --}}
+                                            </a>
+                                        @endif
+                                        <a class="btn btn-sm btn-dark fw-bold" title="Lihat Detail Pesanan"
+                                            href="{{ route('transaksi.show', ['transaksi' => $item->id]) }}">
+                                            <i class="fa fa-eye"></i>
+                                            {{-- <span class="d-none d-lg-inline-block">
+                                                Lihat Detail Pesanan
+                                            </span> --}}
+                                        </a>
+                                    @else
+                                        <a class="btn btn-sm btn-outline-dark fw-bold" title="Lihat Detail Pesanan"
+                                            href="{{ route('transaksi.show', ['transaksi' => $item->id]) }}">
+                                            <i class="fa fa-eye"></i>
+                                            {{-- <span class="d-none d-lg-inline-block">
+                                                Lihat Detail Pesanan
+                                            </span> --}}
                                         </a>
                                     @endif
-                                    <a class="btn btn-sm btn-dark" title="Lihat Detail Pesanan"
-                                        href="{{ route('transaksi.show', ['transaksi' => $item->id]) }}">
-                                        <i class="fa fa-eye"></i>
-                                        <span class="d-none d-lg-inline-block">
-                                            Lihat Detail Pesanan
-                                        </span>
-                                    </a>
                                 </td>
                             </tr>
                         @empty

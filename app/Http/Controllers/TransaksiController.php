@@ -10,18 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 
-class TransaksiController extends Controller
-{
-    public function __construct()
-    {
+class TransaksiController extends Controller {
+    public function __construct() {
         $this->middleware('auth');
         Config::$serverKey = config('midtrans.serverKey');
         Config::$clientKey = config('midtrans.clientKey');
         Config::$isProduction = config('midtrans.isProduction');
     }
 
-    public function index()
-    {
+    public function index() {
         if (Auth::user()->level == '0') {
             $data = Transaksi::paginate(10);
         } elseif (Auth::user()->level == '1') {
@@ -32,8 +29,7 @@ class TransaksiController extends Controller
         ]);
     }
 
-    public function create()
-    {
+    public function create() {
         $slot = Slot::all();
         $saldo = Saldo::where('user_id', Auth::user()->id)->first();
         return view('authenticate.transaksi.create', [
@@ -42,8 +38,7 @@ class TransaksiController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validasi =  Validator::make($request->all(), [
             'slot' => 'required|numeric',
             'tanggal' => 'required|date|after:' . date('Y-m-d H:i:s'),
@@ -88,23 +83,19 @@ class TransaksiController extends Controller
         }
     }
 
-    public function show($id)
-    {
+    public function show($id) {
+        return view('authenticate.transaksi.show');
+    }
+
+    public function edit($id) {
         //
     }
 
-    public function edit($id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

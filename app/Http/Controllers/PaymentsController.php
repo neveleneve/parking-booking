@@ -9,18 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
 
-class PaymentsController extends Controller
-{
-    public function __construct()
-    {
+class PaymentsController extends Controller {
+    public function __construct() {
         $this->middleware('auth');
         Config::$serverKey = config('midtrans.serverKey');
         Config::$clientKey = config('midtrans.clientKey');
         Config::$isProduction = config('midtrans.isProduction');
     }
 
-    public function index()
-    {
+    public function index() {
         if (Auth::user()->level == '0') {
             $data = Pembayaran::get();
         } elseif (Auth::user()->level == '1') {
@@ -32,27 +29,23 @@ class PaymentsController extends Controller
         ]);
     }
 
-    public function create()
-    {
+    public function create() {
         //
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
-    public function show($id)
-    {
+    public function show($id) {
         $data = Pembayaran::where('order_id', $id)
             ->first();
-        return view('authenticate.payments.view', [
+        return view('authenticate.payments.show', [
             'data' => $data
         ]);
     }
 
-    public function edit($id)
-    {
+    public function edit($id) {
         // di edit ini, harus cek status pembayaran dulu. jika pembayaran sudah selesai, ubah statusnya lalu direct ke show. (belum diubah)
         $datapembayaran = Pembayaran::where('order_id', $id)
             ->first();
@@ -79,13 +72,11 @@ class PaymentsController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

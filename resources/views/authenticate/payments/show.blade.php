@@ -5,6 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8 mb-3">
                 <div class="card mb-3">
+                    <div class="card-header text-bg-dark text-center">
+                        <h4 class="fw-bold ">Data Pembayaran</h4>
+                    </div>
                     <div class="card-body text-center">
                         <label for="order_id" class="fw-bold">Order ID</label>
                         <input type="text" value="{{ $data->order_id }}" readonly id="order_id"
@@ -27,7 +30,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <a href="{{ route('payments.index') }}" class="btn btn-sm btn-outline-danger">
+                    <a href="{{ route('payments.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
                         Kembali
                     </a>
                 </div>

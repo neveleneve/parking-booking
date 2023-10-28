@@ -3,19 +3,11 @@
 @section('content')
     <div class="content">
         <div class="row justify-content-center">
-            @if (Session::has('alert'))
-                <div class="col-12 col-lg-8">
-                    <div class="alert alert-{{ session('color') }} alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ session('alert') }}
-                    </div>
-                </div>
-            @endif
             <div class="col-12 col-lg-8 mb-3">
                 <div class="card">
                     <div class="card-header text-bg-dark">
                         <h4 class="text-center fw-bold">
-                            Pesan Slot Parkir
+                            Kontrol Slot Parkir
                         </h4>
                     </div>
                     <div class="card-body">
@@ -78,7 +70,9 @@
                                         @endif
                                     </button>
                                 @endif
-                                <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-dark">Kembali</a>
+                                <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
+                                    Kembali
+                                </a>
                             </div>
                         </form>
                     </div>

@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('slot/status/{id}', [ParkingSlotController::class, 'slotStatus']);
+Route::get('slot/update/{id}', [ParkingSlotController::class, 'slotUpdate']);

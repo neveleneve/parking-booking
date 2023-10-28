@@ -3,14 +3,6 @@
 @section('content')
     <div class="content">
         <div class="row justify-content-center">
-            @if (Session::has('alert'))
-                <div class="col-12 col-lg-8">
-                    <div class="alert alert-{{ session('color') }} alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ session('alert') }}
-                    </div>
-                </div>
-            @endif
             <div class="col-12 col-lg-8 mb-3">
                 <div class="card">
                     <div class="card-header text-bg-dark">
