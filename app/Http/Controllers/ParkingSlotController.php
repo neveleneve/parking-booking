@@ -31,7 +31,7 @@ class ParkingSlotController extends Controller {
         }
     }
 
-    public function slotUpdate($id, Request $request) {
-        // 
+    public function slotUpdate(Request $request) {
+        //
     }
 }

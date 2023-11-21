@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 offset-md-4 d-grid gap-2 mb-3">
                                     <a href="{{ route('register') }}" class="btn btn-dark fw-bold">
-                                        Belum memiliki akun? Daftar disini!
+                                        Belum punya akun? Daftar disini!
                                     </a>
                                 </div>
                                 <div class="col-12 col-md-4 offset-md-4 text-center text-md-start">

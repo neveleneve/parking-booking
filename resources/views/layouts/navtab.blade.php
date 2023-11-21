@@ -22,8 +22,8 @@
                 </li>
             @endif
             <li class="nav-item">
-                <a href="{{ route('payments.index') }}"
-                    class="nav-link text-dark {{ Request::is('payments*') ? 'active fw-bold' : null }}">
+                <a href="{{ route('pembayaran.index') }}"
+                    class="nav-link text-dark {{ Request::is('pembayaran*') ? 'active fw-bold' : null }}">
                     Pembayaran
                 </a>
             </li>

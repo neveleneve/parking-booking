@@ -30,6 +30,9 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
+                    <a href="#" class="btn btn-sm btn-dark fw-bold">
+                        Cetak Struk
+                    </a>
                     <a href="{{ route('payments.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
                         Kembali
                     </a>

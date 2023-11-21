@@ -45,17 +45,11 @@
                                         <a class="btn btn-sm btn-dark fw-bold" title="Lihat Detail Pesanan"
                                             href="{{ route('transaksi.show', ['transaksi' => $item->id]) }}">
                                             <i class="fa fa-eye"></i>
-                                            {{-- <span class="d-none d-lg-inline-block">
-                                                Lihat Detail Pesanan
-                                            </span> --}}
                                         </a>
                                     @else
                                         <a class="btn btn-sm btn-outline-dark fw-bold" title="Lihat Detail Pesanan"
                                             href="{{ route('transaksi.show', ['transaksi' => $item->id]) }}">
                                             <i class="fa fa-eye"></i>
-                                            {{-- <span class="d-none d-lg-inline-block">
-                                                Lihat Detail Pesanan
-                                            </span> --}}
                                         </a>
                                     @endif
                                 </td>
