@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TransactionHelper;
 use App\Models\Pembayaran;
 use App\Models\Saldo;
 use App\Models\Slot;
@@ -14,18 +15,15 @@ use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction;
 
-class TopUpController extends Controller
-{
-    public function __construct()
-    {
+class TopUpController extends Controller {
+    public function __construct() {
         $this->middleware('customer');
         Config::$serverKey = config('midtrans.serverKey');
         Config::$clientKey = config('midtrans.clientKey');
         Config::$isProduction = config('midtrans.isProduction');
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $request->validate([
             'total' => 'required|numeric|min:20000'
         ]);
@@ -59,77 +57,30 @@ class TopUpController extends Controller
         ]);
     }
 
-    public function paymentFinish(Request $request)
-    {
+    public function paymentFinish(Request $request) {
+        // from midtrans
         $statusResponse = Transaction::status($request->order_id);
-        try {
-            $paymentStatus = $statusResponse->transaction_status;
-            if ($statusResponse->status_code == '200') {
-                if ($paymentStatus === 'capture' || $paymentStatus === 'settlement') {
-                    $data = Pembayaran::where('order_id', $request->order_id)->first();
-                    if ($data->status != 3) {
-                        Pembayaran::where('order_id', $request->order_id)
-                            ->update([
-                                'status' => '3',
-                                'status_code' => $statusResponse->status_code,
-                                'transaction_status' => $statusResponse->transaction_status,
-                            ]);
-                        Saldo::where('user_id', Auth::user()->id)->increment('credit', $data->nominal);
-                    }
-                    return view('authenticate.payments.finish');
-                } elseif ($paymentStatus === 'pending') {
-                    Pembayaran::where('order_id', $request->order_id)
-                        ->update([
-                            'status' => '1',
-                            'status_code' => $request->status_code,
-                            'transaction_status' => $request->transaction_status,
-                        ]);
-                } else {
-                    Pembayaran::where('order_id', $request->order_id)
-                        ->update([
-                            'status' => '1',
-                            'status_code' => $request->status_code,
-                            'transaction_status' => $request->transaction_status,
-                        ]);
-                }
-            } else {
-                Pembayaran::where('order_id', $request->order_id)
-                    ->update([
-                        'status' => '1',
-                        'status_code' => $statusResponse->status_code,
-                        'transaction_status' => $statusResponse->transaction_status,
-                    ]);
-                return redirect(route('payments.index'))->with([
-                    'alert' => 'Berhasil membatalkan top up!',
-                    'color' => 'success',
-                ]);
-            }
-        } catch (Exception $e) {
-            dd([5, $e]);
-            // echo 'Error: ' . $e->getMessage();
-        }
+        // from db
+        $pembayaranData = Pembayaran::where('order_id', $request->order_id)->first();
+        dd($statusResponse);
     }
 
-    public function paymentUnfinish(Request $request)
-    {
+    public function paymentUnfinish(Request $request) {
         dd($request->all());
     }
 
-    public function paymentError(Request $request)
-    {
+    public function paymentError(Request $request) {
         dd($request->all());
     }
 
-    public function control($id)
-    {
+    public function control($id) {
         $transaksi = Transaksi::with('slot')->find($id);
         return view('authenticate.transaksi.control', [
             'data' => $transaksi
         ]);
     }
 
-    public function controlUpdate(Request $request)
-    {
+    public function controlUpdate(Request $request) {
         $validasi = Validator::make($request->all(), [
             'id' => 'required',
             'kode_transaksi' => 'required',
@@ -193,17 +144,18 @@ class TopUpController extends Controller
         }
     }
 
-    public function paymentCancellation(Request $request)
-    {
-        Pembayaran::where('order_id', $request->order_id)->delete();
-        return redirect(route('payments.index'))->with([
+    public function paymentCancellation(Request $request) {
+        Transaction::cancel($request->order_id);
+        Pembayaran::where('order_id', $request->order_id)->update([
+            'transaction_status' => 'cancel'
+        ]);
+        return redirect(route('pembayaran.index'))->with([
             'alert' => 'Berhasil membatalkan top up!',
             'color' => 'success',
         ]);
     }
 
-    public function randomString($length = 10)
-    {
+    public function randomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $string = '';
         for ($i = 0; $i < $length; $i++) {

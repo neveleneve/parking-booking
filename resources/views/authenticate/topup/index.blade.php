@@ -20,7 +20,9 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <button id="pay-button" class="btn btn-sm btn-outline-dark">Pay Now</button>
+                    <button id="pay-button" class="btn btn-sm btn-outline-dark fw-bold">
+                        Pay Now
+                    </button>
                 </div>
             </div>
         </div>
@@ -35,6 +37,6 @@
         document.getElementById('pay-button').onclick = function() {
             const snapToken = document.getElementById('snapToken').dataset.snapToken;
             snap.pay(snapToken);
-        };
+        }
     </script>
 @endpush

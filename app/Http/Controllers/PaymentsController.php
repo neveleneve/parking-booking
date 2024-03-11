@@ -46,25 +46,6 @@ class PaymentsController extends Controller {
     }
 
     public function edit($id) {
-        // di edit ini, harus cek status pembayaran dulu. jika pembayaran sudah selesai, ubah statusnya lalu direct ke show. (belum diubah)
-        $datapembayaran = Pembayaran::where('order_id', $id)
-            ->first();
-        $datauser = User::find($datapembayaran->user_id);
-        $transactionDetails = [
-            'order_id' => $datapembayaran->order_id,
-            'gross_amount' => $datapembayaran->nominal,
-        ];
-
-        $snapToken = Snap::getSnapToken([
-            'transaction_details' => $transactionDetails,
-            "customer_details" => [
-                "first_name" => $datauser->name,
-                "email" => $datauser->email,
-            ]
-        ]);
-        Pembayaran::where('order_id', $id)->update([
-            'snap_token' => $snapToken
-        ]);
         $data = Pembayaran::where('order_id', $id)
             ->first();
         return view('authenticate.payments.edit', [

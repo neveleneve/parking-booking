@@ -19,12 +19,14 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <button id="pay-button" class="btn btn-sm btn-outline-dark">Pay Now</button>
-                    <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+                    <button id="pay-button" class="btn btn-sm btn-outline-dark fw-bold">
+                        Pay Now
+                    </button>
+                    <button class="btn btn-sm btn-outline-warning fw-bold" data-bs-toggle="modal"
                         data-bs-target="#modalCancelPayment">
                         Batalkan Pembayaran
                     </button>
-                    <a href="{{ route('payments.index') }}" class="btn btn-sm btn-outline-danger">
+                    <a href="{{ route('pembayaran.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
                         Kembali
                     </a>
                 </div>

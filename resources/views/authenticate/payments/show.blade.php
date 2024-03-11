@@ -16,13 +16,8 @@
                         <input type="text" value="Rp {{ number_format($data->nominal, 0, ',', '.') }}" readonly
                             id="nominal" class="form-control-plaintext form-control-sm text-center mb-3">
                         <label for="status" class="fw-bold">Status</label>
-                        @if ($data->status != 3)
-                            <input type="text" value="Pembayaran dalam proses" readonly id="status"
-                                class="form-control-plaintext form-control-sm text-center mb-3">
-                        @else
-                            <input type="text" value="Pembayaran berhasil" readonly id="status"
-                                class="form-control-plaintext form-control-sm text-center mb-3">
-                        @endif
+                        <input type="text" value="{{ ucwords(str_replace('_', ' ', $item->transaction_status)) }}"
+                            readonly id="status" class="form-control-plaintext form-control-sm text-center mb-3">
                         <label for="tanggal" class="fw-bold">Tanggal Transaksi</label>
                         <input type="text" readonly id="tanggal"
                             class="form-control-plaintext form-control-sm text-center mb-3"
@@ -33,7 +28,7 @@
                     <a href="#" class="btn btn-sm btn-dark fw-bold">
                         Cetak Struk
                     </a>
-                    <a href="{{ route('payments.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
+                    <a href="{{ route('pembayaran.index') }}" class="btn btn-sm btn-outline-danger fw-bold">
                         Kembali
                     </a>
                 </div>

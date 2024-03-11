@@ -14,7 +14,6 @@ class Pembayaran extends Model {
         'nominal',
         'snap_token',
         'status',
-        'status_code',
         'transaction_status',
     ];
 

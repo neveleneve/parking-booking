@@ -36,24 +36,17 @@
                                     @endif
                                     <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
                                     <td class="d-none d-lg-table-cell">
-                                        @if ($item->status == '0')
-                                            <i class="fa fa-minus-circle" title="Pembayaran dalam proses"></i>
-                                        @elseif ($item->status == '1')
-                                            <i class="fa fa-times-circle" title="Pembayaran dalam proses"></i>
-                                        @elseif ($item->status == '2')
-                                            <i class="fa fa-exclamation-circle"
-                                                title="Ada kesalahan dalam proses pembayaran"></i>
-                                        @elseif ($item->status == '3')
-                                            <i class="fa fa-check-circle" title="Pembayaran berhasiil"></i>
-                                        @endif
+                                        <span class="badge text-bg-dark">
+                                            {{ ucwords(str_replace('_', ' ', $item->transaction_status)) }}
+                                        </span>
                                     </td>
                                     <td>
-                                        <a href="{{ route('payments.show', ['payment' => $item->order_id]) }}"
+                                        <a href="{{ route('pembayaran.show', ['pembayaran' => $item->order_id]) }}"
                                             class="btn btn-sm btn-outline-dark" title="Lihat Data">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        @if ($item->status != '3')
-                                            <a href="{{ route('payments.edit', ['payment' => $item->order_id]) }}"
+                                        @if ($item->status != '3' && $item->status != '4')
+                                            <a href="{{ route('pembayaran.edit', ['pembayaran' => $item->order_id]) }}"
                                                 class="btn btn-sm btn-outline-danger" title="Lanjut Pembayaran">
                                                 <i class="fas fa-dollar-sign"></i>
                                             </a>
