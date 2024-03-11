@@ -17,8 +17,9 @@
                             {{ \App\Http\Controllers\Controller::konversiTanggal(Auth::user()->created_at) }}
                         </p>
                         <div class="d-grid gap-2">
-                            <a href="{{ route('profil.edit', ['profil' => Auth::user()->id]) }}"
-                                class="btn btn-sm btn-outline-dark fw-bold">Edit Profile</a>
+                            <a href="{{ route('profil.edit') }}" class="btn btn-sm btn-outline-dark fw-bold">
+                                Edit Profile
+                            </a>
                         </div>
                     </div>
                 </div>

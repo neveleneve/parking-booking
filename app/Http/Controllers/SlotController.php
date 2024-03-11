@@ -29,21 +29,15 @@ class SlotController extends Controller {
         ]);
 
         if ($validasi->fails()) {
-            return redirect(route('slot.index'))
-                ->with([
-                    'alert' => 'Terjadi kesalahan ketika menambah slot parkir. Silakan ulangi!',
-                    'color' => 'danger',
-                ]);
+            Alert::error('Gagal', 'Terjadi kesalahan ketika menambah slot parkir. Silakan ulang!');
+            return redirect(route('slot.index'));
         } else {
             Slot::create([
                 'name' => $request->name,
                 'token' => $this->randomString(),
             ]);
-            return redirect(route('slot.index'))
-                ->with([
-                    'alert' => 'Berhasil menambah slot parkir!',
-                    'color' => 'success',
-                ]);
+            Alert::success('Berhasil', 'Berhasil menambah slot parkir!');
+            return redirect(route('slot.index'));
         }
     }
 
