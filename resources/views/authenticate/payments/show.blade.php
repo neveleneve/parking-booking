@@ -16,7 +16,7 @@
                         <input type="text" value="Rp {{ number_format($data->nominal, 0, ',', '.') }}" readonly
                             id="nominal" class="form-control-plaintext form-control-sm text-center mb-3">
                         <label for="status" class="fw-bold">Status</label>
-                        <input type="text" value="{{ ucwords(str_replace('_', ' ', $item->transaction_status)) }}"
+                        <input type="text" value="{{ ucwords(str_replace('_', ' ', $data->transaction_status)) }}"
                             readonly id="status" class="form-control-plaintext form-control-sm text-center mb-3">
                         <label for="tanggal" class="fw-bold">Tanggal Transaksi</label>
                         <input type="text" readonly id="tanggal"

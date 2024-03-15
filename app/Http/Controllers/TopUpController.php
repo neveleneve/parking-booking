@@ -57,29 +57,57 @@ class TopUpController extends Controller {
     }
 
     public function paymentFinish(Request $request) {
-        // from midtrans
-        // $statusResponse = Transaction::status($request->order_id);
-        // from db
-        // $pembayaranData = Pembayaran::where('order_id', $request->order_id)->first();
+        $pembayaran = Pembayaran::where('order_id', $request->order_id)->first();
+        $transaksi = Transaction::status($request->order_id);
         $helper = new TransactionHelper($request->order_id);
-        dd($helper->isDataShouldUpdate());
+        $status = $helper->isDataShouldUpdate();
+        if ($status) {
+            $increase = $helper->isCreditIncrease();
+            if ($increase) {
+                Saldo::where('user_id', $pembayaran->user_id)->increment('credit', $transaksi->gross_amount);
+            }
+            $pembayaran->update([
+                'status' => $helper->statusUpdate(),
+                'transaction_status' => $transaksi->transaction_status
+            ]);
+        }
+        return redirect(route('dashboard.index'));
     }
 
     public function paymentUnfinish(Request $request) {
-        dd($request->all());
+        $pembayaran = Pembayaran::where('order_id', $request->order_id)->first();
+        $transaksi = Transaction::status($request->order_id);
+        $helper = new TransactionHelper($request->order_id);
+        $status = $helper->isDataShouldUpdate();
+        $increase = $helper->isCreditIncrease();
+        if ($status) {
+            if ($increase) {
+                Saldo::where('user_id', $pembayaran->user_id)->increment('credit', $transaksi->gross_amount);
+            }
+            $pembayaran->update([
+                'status' => $helper->statusUpdate(),
+                'transaction_status' => $transaksi->transaction_status
+            ]);
+        }
+        return redirect(route('dashboard.index'));
     }
 
     public function paymentError(Request $request) {
-        $data = Pembayaran::where('order_id', $request->order_id)->first();
-        $datax = Transaction::status($request->order_id);
+        $pembayaran = Pembayaran::where('order_id', $request->order_id)->first();
+        $transaksi = Transaction::status($request->order_id);
         $helper = new TransactionHelper($request->order_id);
-        dd([$helper]);
         $status = $helper->isDataShouldUpdate();
         if ($status) {
-            # code...
-        } else {
-            # code...
+            $increase = $helper->isCreditIncrease();
+            if ($increase) {
+                Saldo::where('user_id', $pembayaran->user_id)->increment('credit', $transaksi->gross_amount);
+            }
+            $pembayaran->update([
+                'status' => $helper->statusUpdate(),
+                'transaction_status' => $transaksi->transaction_status
+            ]);
         }
+        return redirect(route('dashboard.index'));
     }
 
     public function control($id) {

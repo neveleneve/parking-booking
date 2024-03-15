@@ -86,6 +86,8 @@ class TransactionHelper {
       return false;
     } elseif ($this->trxDatabase == 'partial_chargeback') {
       return false;
+    } elseif ($this->trxDatabase == 'failure') {
+      return false;
     }
   }
 
@@ -107,5 +109,36 @@ class TransactionHelper {
       $status = false;
     }
     return $status;
+  }
+
+  public function statusUpdate() {
+    $status = $this->trxMidtrans;
+    if ($status == 'initiate') {
+      return '0';
+    } elseif ($status == 'pending') {
+      return '1';
+    } elseif ($status == 'authorize') {
+      return '2';
+    } elseif ($status == 'capture') {
+      return '2';
+    } elseif ($status == 'failure') {
+      return '2';
+    } elseif ($status == 'settlement') {
+      return '3';
+    } elseif ($status == 'cancel') {
+      return '3';
+    } elseif ($status == 'deny') {
+      return '3';
+    } elseif ($status == 'expire') {
+      return '3';
+    } elseif ($status == 'refund') {
+      return '3';
+    } elseif ($status == 'chargeback') {
+      return '3';
+    } elseif ($status == 'partial_refund') {
+      return '3';
+    } elseif ($status == 'partial_chargeback') {
+      return '3';
+    }
   }
 }

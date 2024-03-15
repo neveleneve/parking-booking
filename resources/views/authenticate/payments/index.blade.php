@@ -45,7 +45,7 @@
                                             class="btn btn-sm btn-outline-dark" title="Lihat Data">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        @if ($item->status != '3' && $item->status != '4')
+                                        @if ($item->status != '2' && $item->status != '3')
                                             <a href="{{ route('pembayaran.edit', ['pembayaran' => $item->order_id]) }}"
                                                 class="btn btn-sm btn-outline-danger" title="Lanjut Pembayaran">
                                                 <i class="fas fa-dollar-sign"></i>
