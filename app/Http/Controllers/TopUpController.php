@@ -47,8 +47,7 @@ class TopUpController extends Controller {
             'nominal' => $transactionDetails['gross_amount'],
             'snap_token' => $snapToken,
             'status' => '0',
-            'status_code' => null,
-            'transaction_status' => null,
+            'transaction_status' => 'initiate',
         ]);
 
         return view('authenticate.topup.index', [
@@ -59,10 +58,11 @@ class TopUpController extends Controller {
 
     public function paymentFinish(Request $request) {
         // from midtrans
-        $statusResponse = Transaction::status($request->order_id);
+        // $statusResponse = Transaction::status($request->order_id);
         // from db
-        $pembayaranData = Pembayaran::where('order_id', $request->order_id)->first();
-        dd($statusResponse);
+        // $pembayaranData = Pembayaran::where('order_id', $request->order_id)->first();
+        $helper = new TransactionHelper($request->order_id);
+        dd($helper->isDataShouldUpdate());
     }
 
     public function paymentUnfinish(Request $request) {
@@ -70,7 +70,16 @@ class TopUpController extends Controller {
     }
 
     public function paymentError(Request $request) {
-        dd($request->all());
+        $data = Pembayaran::where('order_id', $request->order_id)->first();
+        $datax = Transaction::status($request->order_id);
+        $helper = new TransactionHelper($request->order_id);
+        dd([$helper]);
+        $status = $helper->isDataShouldUpdate();
+        if ($status) {
+            # code...
+        } else {
+            # code...
+        }
     }
 
     public function control($id) {

@@ -1,6 +1,7 @@
 <header class="bg-dark text-white p-3">
     <div class="container-fluid container-lg d-flex justify-content-between align-items-center">
-        <h1 class="m-0 h4 fw-bold"> {{ config('app.name', 'Laravel') }}</h1>
+        <a href="{{ route('landing-page') }}" class="m-0 h4 fw-bold text-white text-decoration-none">
+            {{ config('app.name', 'Laravel') }}</a>
         <div class="dropdown">
             @guest
                 <button class="btn btn-dark dropdown-toggle d-none d-lg-inline" type="button" id="dropdownMenuButton"
