@@ -22,6 +22,7 @@
                                     <th>Nama</th>
                                 @endif
                                 <th>Nominal</th>
+                                <th>Waktu</th>
                                 <th class="d-none d-lg-table-cell">Status</th>
                                 <th></th>
                             </tr>
@@ -35,6 +36,7 @@
                                         <td>{{ $item->user->name }}</td>
                                     @endif
                                     <td>Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
+                                    <td>{{ date_format($item->updated_at, 'd/m/Y H:i:s') }}</td>
                                     <td class="d-none d-lg-table-cell">
                                         <span class="badge text-bg-dark">
                                             {{ ucwords(str_replace('_', ' ', $item->transaction_status)) }}
@@ -55,12 +57,21 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="d-none d-lg-table-cell">
-                                        <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                    </td>
-                                    <td colspan="4" class="d-table-cell d-lg-none">
-                                        <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                    </td>
+                                    @if (Auth::user()->level == 0)
+                                        <td colspan="7" class="d-none d-lg-table-cell">
+                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
+                                        </td>
+                                        <td colspan="4" class="d-table-cell d-lg-none">
+                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
+                                        </td>
+                                    @else
+                                        <td colspan="6" class="d-none d-lg-table-cell">
+                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
+                                        </td>
+                                        <td colspan="4" class="d-table-cell d-lg-none">
+                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforelse
                         </tbody>

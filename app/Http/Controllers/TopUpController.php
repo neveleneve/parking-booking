@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TopUpController extends Controller {
     public function __construct() {
@@ -71,7 +72,9 @@ class TopUpController extends Controller {
                 'transaction_status' => $transaksi->transaction_status
             ]);
         }
-        return redirect(route('dashboard.index'));
+        $alert = $helper->alertStatus();
+        alert($alert['title'], $alert['text'], $alert['type']);
+        return redirect(route('pembayaran.index'));
     }
 
     public function paymentUnfinish(Request $request) {
@@ -89,7 +92,10 @@ class TopUpController extends Controller {
                 'transaction_status' => $transaksi->transaction_status
             ]);
         }
-        return redirect(route('dashboard.index'));
+        $alert = $helper->alertStatus();
+        alert($alert['title'], $alert['text'], $alert['type']);
+        // return redirect(route('dashboard.index'));
+        return redirect(route('pembayaran.index'));
     }
 
     public function paymentError(Request $request) {
@@ -107,7 +113,10 @@ class TopUpController extends Controller {
                 'transaction_status' => $transaksi->transaction_status
             ]);
         }
-        return redirect(route('dashboard.index'));
+        $alert = $helper->alertStatus();
+        alert($alert['title'], $alert['text'], $alert['type']);
+        // return redirect(route('dashboard.index'));
+        return redirect(route('pembayaran.index'));
     }
 
     public function control($id) {
@@ -184,12 +193,11 @@ class TopUpController extends Controller {
     public function paymentCancellation(Request $request) {
         Transaction::cancel($request->order_id);
         Pembayaran::where('order_id', $request->order_id)->update([
+            'status' => '3',
             'transaction_status' => 'cancel'
         ]);
-        return redirect(route('pembayaran.index'))->with([
-            'alert' => 'Berhasil membatalkan top up!',
-            'color' => 'success',
-        ]);
+        Alert::success('Berhasil!', 'Berhasil membatalkan pembayaran!');
+        return redirect(route('pembayaran.index'));
     }
 
     public function randomString($length = 10) {

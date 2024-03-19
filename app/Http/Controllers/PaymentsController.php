@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentsController extends Controller {
     public function __construct() {
@@ -19,9 +20,12 @@ class PaymentsController extends Controller {
 
     public function index() {
         if (Auth::user()->level == '0') {
-            $data = Pembayaran::with('user')->get();
+            $data = Pembayaran::with('user')
+                ->orderBy('created_at')
+                ->get();
         } elseif (Auth::user()->level == '1') {
             $data = Pembayaran::where('user_id', Auth::user()->id)
+                ->orderBy('created_at', 'desc')
                 ->get();
         }
         return view('authenticate.payments.index', [
@@ -48,9 +52,14 @@ class PaymentsController extends Controller {
     public function edit($id) {
         $data = Pembayaran::where('order_id', $id)
             ->first();
-        return view('authenticate.payments.edit', [
-            'data' => $data
-        ]);
+        if ($data->status == '3' || $data->status == '2') {
+            Alert::warning('Tidak Bisa Akses', 'Pembayaran sudah selesai!');
+            return redirect(route('pembayaran.index'));
+        } else {
+            return view('authenticate.payments.edit', [
+                'data' => $data
+            ]);
+        }
     }
 
     public function update(Request $request, $id) {

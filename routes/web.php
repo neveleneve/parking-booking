@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Auth::routes();
 
 Route::middleware(['admin'])->group(function () {
     Route::resource('slot', SlotController::class);
+    Route::resource('user', UserController::class);
 });
 
 Route::middleware(['customer'])->group(function () {

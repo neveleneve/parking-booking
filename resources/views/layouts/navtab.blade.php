@@ -20,6 +20,12 @@
                         Slot Parkir
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}"
+                        class="nav-link text-dark {{ Request::is('user*') ? 'active fw-bold' : null }}">
+                        Pengguna
+                    </a>
+                </li>
             @endif
             <li class="nav-item">
                 <a href="{{ route('pembayaran.index') }}"

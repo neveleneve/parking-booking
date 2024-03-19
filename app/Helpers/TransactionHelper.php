@@ -141,4 +141,83 @@ class TransactionHelper {
       return '3';
     }
   }
+
+  public function alertStatus() {
+    $status = $this->trxMidtrans;
+    $callback = [];
+    if ($status == 'pending') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu sedang dalam proses!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'authorize') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu sudah terkonfirmasi!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'capture') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu sudah tercatat!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'failure') {
+      $callback = [
+        'title' => 'Gagal!',
+        'text' => 'Pembayaran mengalami kegagalan! Silakan ulangi proses top-up.',
+        'type' => 'error',
+      ];
+    } elseif ($status == 'cancel') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu berhasil dibatalkan!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'deny') {
+      $callback = [
+        'title' => 'Gagal!',
+        'text' => 'Pembayaran kamu ditolak!',
+        'type' => 'error',
+      ];
+    } elseif ($status == 'expire') {
+      $callback = [
+        'title' => 'Gagal!',
+        'text' => 'Pembayaran kamu sudah kadaluarsa! Silakan ulangi proses top-up.',
+        'type' => 'error',
+      ];
+    } elseif ($status == 'refund') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu berhasi di-refund!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'chargeback') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu berhasil di-kembalikan!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'partial_refund') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu berhasil di-refung!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'partial_chargeback') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu berhasil di-kembalikan!',
+        'type' => 'success',
+      ];
+    } elseif ($status == 'settlement') {
+      $callback = [
+        'title' => 'Berhasil!',
+        'text' => 'Pembayaran kamu sudah terkonfirmasi! Saldo akan bertambah.',
+        'type' => 'success',
+      ];
+    }
+    return $callback;
+  }
 }
