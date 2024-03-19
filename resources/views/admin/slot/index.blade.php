@@ -52,9 +52,21 @@
                         @forelse ($data as $item)
                             <tr>
                                 <td>
-                                    <span class="badge bg-{{ $item->status ? 'success' : 'danger' }}">
-                                        {{-- {{ $item->status ? 'Aktif' : 'Non-Aktif' }} --}}
-                                    </span>
+                                    @if (!$item->status)
+                                        <span class="badge bg-danger">
+                                            Inactive
+                                        </span>
+                                    @else
+                                        @if ($item->is_booked)
+                                            <span class="badge bg-primary">
+                                                Booked
+                                            </span>
+                                        @else
+                                            <span class="badge bg-success">
+                                                Active
+                                            </span>
+                                        @endif
+                                    @endif
                                 </td>
                                 <td class="d-none d-lg-table-cell">{{ $loop->index + 1 }}</td>
                                 <td>{{ $item->name }}</td>

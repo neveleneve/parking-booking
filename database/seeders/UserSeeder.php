@@ -7,15 +7,13 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
-{
+class UserSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         // admin
         User::create([
             'name' => 'Gerry',
@@ -32,7 +30,7 @@ class UserSeeder extends Seeder
         ]);
         Saldo::create([
             'user_id' => $data->id,
-            'credit' => 0,
+            'credit' => 50000,
         ]);
     }
 }

@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
-{
+class Transaksi extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -18,8 +17,11 @@ class Transaksi extends Model
         'jam_keluar',
     ];
 
-    public function slot()
-    {
+    public function slot() {
         return $this->belongsTo(Slot::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

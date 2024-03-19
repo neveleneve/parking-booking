@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TransaksiController extends Controller {
     public function __construct() {
@@ -46,10 +47,8 @@ class TransaksiController extends Controller {
             'agreement' => 'required|numeric',
         ]);
         if ($validasi->fails()) {
-            return redirect(route('transaksi.create'))->with([
-                'alert' => 'Ada kesalahan dalam pemesanan. Silakan ulangi!',
-                'color' => 'danger',
-            ]);
+            Alert::warning('Gagal Menambah Data', 'Silakan ulangi!');
+            return redirect(route('transaksi.create'));
         } else {
             $slot = Slot::find($request->slot);
             if ($slot->is_booked) {
@@ -57,34 +56,36 @@ class TransaksiController extends Controller {
                     'alert' => $slot->name . ' sudah dipesan. Silakan pesan slot lain yang belum dipesan!',
                     'color' => 'danger',
                 ]);
+            } else {
+                if (!$slot->status) {
+                    Alert::warning('Gagal!', $slot->name . ' sedang tidak aktif. Silakan pesan slot lain yang aktif!');
+                    return redirect(route('transaksi.create'))->with([
+                        'alert' => $slot->name . ' sedang tidak aktif. Silakan pesan slot lain yang aktif!',
+                        'color' => 'danger',
+                    ]);
+                } else {
+                    $slot->update([
+                        'is_booked' => true,
+                        'booking_date' => date('Y-m-d H:i:s', strtotime($request->tanggal)),
+                    ]);
+                    Saldo::where('user_id', Auth::user()->id)->decrement('credit', 20000);
+                    Transaksi::create([
+                        'kode_transaksi' => $this->randomString(5),
+                        'user_id' => Auth::user()->id,
+                        'slot_id' => $slot->id,
+                        'status' => '0',
+                    ]);
+                    Alert::success('Berhasil!', 'Berhasil melakukan booking slot');
+                    return redirect(route('transaksi.index'));
+                }
             }
-            if (!$slot->status) {
-                return redirect(route('transaksi.create'))->with([
-                    'alert' => $slot->name . ' sedang tidak aktif. Silakan pesan slot lain yang aktif!',
-                    'color' => 'danger',
-                ]);
-            }
-
-            $slot->update([
-                'is_booked' => true,
-                'booking_date' => date('Y-m-d H:i:s', strtotime($request->tanggal)),
-            ]);
-            Saldo::where('user_id', Auth::user()->id)->decrement('credit', 20000);
-            Transaksi::create([
-                'kode_transaksi' => $this->randomString(5),
-                'user_id' => Auth::user()->id,
-                'slot_id' => $slot->id,
-                'status' => '0',
-            ]);
-            return redirect(route('transaksi.index'))->with([
-                'alert' => 'Berhasil melakukan pemesanan slot parkir',
-                'color' => 'success',
-            ]);
         }
     }
 
-    public function show($id) {
-        return view('authenticate.transaksi.show');
+    public function show(Transaksi $transaksi) {
+        return view('authenticate.transaksi.show', [
+            'transaksi' => $transaksi
+        ]);
     }
 
     public function edit($id) {
