@@ -70,7 +70,8 @@ class TransaksiController extends Controller {
                     ]);
                     Saldo::where('user_id', Auth::user()->id)->decrement('credit', 20000);
                     Transaksi::create([
-                        'kode_transaksi' => $this->randomString(5),
+                        // 'kode_transaksi' => $this->randomString(5),
+                        'kode_transaksi' => uniqid(),
                         'user_id' => Auth::user()->id,
                         'slot_id' => $slot->id,
                         'status' => '0',
