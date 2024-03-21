@@ -115,7 +115,6 @@ class TopUpController extends Controller {
         }
         $alert = $helper->alertStatus();
         alert($alert['title'], $alert['text'], $alert['type']);
-        // return redirect(route('dashboard.index'));
         return redirect(route('pembayaran.index'));
     }
 
@@ -148,45 +147,34 @@ class TopUpController extends Controller {
                 $slot->update([
                     'status_pakai' => '1'
                 ]);
+                $transaksi->update([
+                    'jam_masuk' => date('Y-m-d H:i:s')
+                ]);
                 $alert = [
-                    'alert' => 'Berhasil membuka palang!',
-                    'color' => 'success',
+                    'title' => '',
+                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
                 ];
             } elseif ($request->status_pakai == 1) {
                 $slot->update([
                     'status_pakai' => '2'
                 ]);
-                $transaksi->update([
-                    'jam_masuk' => date('Y-m-d H:i:s')
-                ]);
-                $alert = [
-                    'alert' => 'Berhasil menutup palang!',
-                    'color' => 'success',
-                ];
             } elseif ($request->status_pakai == 2) {
                 $slot->update([
                     'status_pakai' => '3'
                 ]);
-                $alert = [
-                    'alert' => 'Berhasil membuka palang!',
-                    'color' => 'success',
-                ];
+                $transaksi->update([
+                    'status' => '1',
+                    'jam_keluar' => date('Y-m-d H:i:s')
+                ]);
             } elseif ($request->status_pakai == 3) {
                 $slot->update([
                     'is_booked' => '0',
                     'status_pakai' => '0',
                     'booking_date' => null
                 ]);
-                $transaksi->update([
-                    'status' => '1',
-                    'jam_keluar' => date('Y-m-d H:i:s')
-                ]);
-                $alert = [
-                    'alert' => 'Berhasil menutup palang!',
-                    'color' => 'success',
-                ];
             }
-            return redirect(route('transaksi.control', ['id' => $request->id]))->with($alert);
+            Alert::info('Info Title', 'Info Message');
+            return redirect(route('transaksi.control', ['id' => $request->id]));
         }
     }
 
