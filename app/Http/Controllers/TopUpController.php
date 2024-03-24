@@ -147,33 +147,45 @@ class TopUpController extends Controller {
                 $slot->update([
                     'status_pakai' => '1'
                 ]);
-                $transaksi->update([
-                    'jam_masuk' => date('Y-m-d H:i:s')
-                ]);
                 $alert = [
-                    'title' => '',
+                    'title' => 'Berhasil!',
                     'message' => 'Sedang membuka palang! Menunggu respon sensor...',
                 ];
             } elseif ($request->status_pakai == 1) {
                 $slot->update([
                     'status_pakai' => '2'
                 ]);
+                $transaksi->update([
+                    'jam_masuk' => date('Y-m-d H:i:s')
+                ]);
+                $alert = [
+                    'title' => 'Berhasil!',
+                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
+                ];
             } elseif ($request->status_pakai == 2) {
                 $slot->update([
                     'status_pakai' => '3'
                 ]);
-                $transaksi->update([
-                    'status' => '1',
-                    'jam_keluar' => date('Y-m-d H:i:s')
-                ]);
+                $alert = [
+                    'title' => 'Berhasil!',
+                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
+                ];
             } elseif ($request->status_pakai == 3) {
                 $slot->update([
                     'is_booked' => '0',
                     'status_pakai' => '0',
                     'booking_date' => null
                 ]);
+                $transaksi->update([
+                    'status' => '1',
+                    'jam_keluar' => date('Y-m-d H:i:s')
+                ]);
+                $alert = [
+                    'title' => 'Berhasil!',
+                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
+                ];
             }
-            Alert::info('Info Title', 'Info Message');
+            Alert::info($alert['title'], $alert['message']);
             return redirect(route('transaksi.control', ['id' => $request->id]));
         }
     }

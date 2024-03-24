@@ -21,8 +21,8 @@ class ParkingSlotController extends Controller {
             $slot = Slot::find($id);
             if (!$slot) {
                 return response()->json([
-                    'message' => 'Data received successfully',
-                    'data' => (int) $slot->status_pakai,
+                    'message' => 'Data failed receive',
+                    'data' => null,
                     'response' => 404,
                 ], 404);
             } else {
@@ -30,7 +30,13 @@ class ParkingSlotController extends Controller {
                     if ($request->token == $slot->token) {
                         return response()->json([
                             'message' => 'Data received successfully',
-                            'data' => (int) $slot->status_pakai,
+                            'data' => [
+                                'id' => $slot->id,
+                                'token' => $slot->token,
+                                'status_pakai' => $slot->status_pakai,
+                                'status_respon' => $slot->status_respon,
+                                'status' => $slot->status,
+                            ],
                             'response' => 200,
                         ], 200);
                     } else {
@@ -53,5 +59,9 @@ class ParkingSlotController extends Controller {
 
     public function slotUpdate(Request $request) {
         //
+    }
+
+    public function slotStep(Request $request) {
+        // 
     }
 }
