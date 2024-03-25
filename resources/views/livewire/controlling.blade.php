@@ -44,7 +44,21 @@
             </div>
         </form>
     </div>
-</div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setInterval(() => {
+                @this.call('notification', {{ $data->id }});
+            }, 1000);
 
-@push('custom-js')
-@endpush
+            window.addEventListener('notificationEvent', event => {
+                const message = event.detail.message;
+                Swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.message,
+                    icon: event.detail.icon,
+                    showConfirmButton: false
+                });
+            });
+        });
+    </script>
+</div>

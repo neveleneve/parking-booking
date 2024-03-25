@@ -18,7 +18,7 @@ class CreateSlotsTable extends Migration {
             $table->boolean('is_booked')->default(false)->nullable();
             $table->dateTime('booking_date')->default(null)->nullable();
             $table->enum('status_pakai', [0, 1, 2, 3])->default('0')->nullable();
-            $table->enum('status_respon', [0, 1, 2, 3])->default('0')->nullable();
+            $table->enum('status_respon', [0, 1, 2, 3, 4])->default('0')->nullable();
             $table->enum('status', [0, 1])->default('0')->nullable();
             $table->timestamps();
         });

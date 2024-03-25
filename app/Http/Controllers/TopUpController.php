@@ -139,53 +139,26 @@ class TopUpController extends Controller {
         } else {
             $transaksi = Transaksi::find($request->id);
             $slot = Slot::find($transaksi->slot_id);
-            $alert = [
-                'alert' => null,
-                'color' => null,
-            ];
             if ($request->status_pakai == 0) {
                 $slot->update([
-                    'status_pakai' => '1'
+                    'status_respon' => '1'
                 ]);
-                $alert = [
-                    'title' => 'Berhasil!',
-                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
-                ];
             } elseif ($request->status_pakai == 1) {
                 $slot->update([
-                    'status_pakai' => '2'
+                    'status_respon' => '1'
                 ]);
                 $transaksi->update([
                     'jam_masuk' => date('Y-m-d H:i:s')
                 ]);
-                $alert = [
-                    'title' => 'Berhasil!',
-                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
-                ];
             } elseif ($request->status_pakai == 2) {
                 $slot->update([
-                    'status_pakai' => '3'
+                    'status_respon' => '1'
                 ]);
-                $alert = [
-                    'title' => 'Berhasil!',
-                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
-                ];
             } elseif ($request->status_pakai == 3) {
                 $slot->update([
-                    'is_booked' => '0',
-                    'status_pakai' => '0',
-                    'booking_date' => null
+                    'status_respon' => '1'
                 ]);
-                $transaksi->update([
-                    'status' => '1',
-                    'jam_keluar' => date('Y-m-d H:i:s')
-                ]);
-                $alert = [
-                    'title' => 'Berhasil!',
-                    'message' => 'Sedang membuka palang! Menunggu respon sensor...',
-                ];
             }
-            Alert::info($alert['title'], $alert['message']);
             return redirect(route('transaksi.control', ['id' => $request->id]));
         }
     }

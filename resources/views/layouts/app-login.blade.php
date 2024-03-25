@@ -51,6 +51,7 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     {{-- <script src="{{ asset('js/popper.js') }}"></script> --}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     @stack('custom-js')
     <script>
         let startY, lastY;

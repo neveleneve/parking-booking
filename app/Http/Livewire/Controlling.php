@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Transaksi;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Controlling extends Component {
     public $transaction_id;
@@ -43,5 +44,50 @@ class Controlling extends Component {
             'button' => 'Kesalahan',
             'class' => 'bg-danger'
         ];
+    }
+
+    public function notification($id) {
+        $data = Transaksi::with('slot')->find($id);
+        if ($data->slot->status_respon == '1') {
+            $title = '';
+            if ($data->slot->status_pakai == '0' || $data->slot->status_pakai == '2') {
+                $title = 'Membuka Palang Pintu';
+            } elseif ($data->slot->status_pakai == '1' || $data->slot->status_pakai == '3') {
+                $title = 'Menutup Palang Pintu';
+            }
+            $this->dispatchBrowserEvent('notificationEvent', [
+                'title' => $title,
+                'icon' => 'info',
+                'message' => 'Menunggu respon dari sensor...'
+            ]);
+            $data->slot->update([
+                'status_respon' => '0'
+            ]);
+        } elseif ($data->slot->status_respon == '3') {
+            $title = '';
+            $this->dispatchBrowserEvent('notificationEvent', [
+                'title' => $title,
+                'icon' => 'info',
+                'message' => 'Menunggu respon dari sensor...'
+            ]);
+
+            $data->slot->update([
+                'status_respon' => '0'
+            ]);
+        } elseif ($data->slot->status_respon == '4') {
+            $title = '';
+            $this->dispatchBrowserEvent('notificationEvent', [
+                'title' => $title,
+                'icon' => 'info',
+                'message' => 'Menunggu respon dari sensor...'
+            ]);
+            $data->slot->update([
+                'status_respon' => '0'
+            ]);
+        }
+    }
+
+    public function controlUpdate($id) {
+        // 
     }
 }
