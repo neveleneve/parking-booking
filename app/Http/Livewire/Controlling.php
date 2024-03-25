@@ -80,7 +80,7 @@ class Controlling extends Component {
             ]);
             $update = '0';
         }
-        sleep(3);
+        sleep(1);
         $data->slot->update([
             'status_respon' => $update
         ]);
