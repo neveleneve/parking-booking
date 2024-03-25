@@ -48,6 +48,7 @@ class Controlling extends Component {
 
     public function notification($id) {
         $data = Transaksi::with('slot')->find($id);
+        $update = '0';
         if ($data->slot->status_respon == '1') {
             $title = '';
             if ($data->slot->status_pakai == '0' || $data->slot->status_pakai == '2') {
@@ -60,10 +61,8 @@ class Controlling extends Component {
                 'icon' => 'info',
                 'message' => 'Menunggu respon dari sensor...'
             ]);
-            sleep(3);
-            $data->slot->update([
-                'status_respon' => '0'
-            ]);
+            // harusnya values 2. 0 untuk test
+            $update = '0';
         } elseif ($data->slot->status_respon == '3') {
             $title = '';
             $this->dispatchBrowserEvent('notificationEvent', [
@@ -71,10 +70,7 @@ class Controlling extends Component {
                 'icon' => 'info',
                 'message' => 'Menunggu respon dari sensor...'
             ]);
-
-            $data->slot->update([
-                'status_respon' => '0'
-            ]);
+            $update = '0';
         } elseif ($data->slot->status_respon == '4') {
             $title = '';
             $this->dispatchBrowserEvent('notificationEvent', [
@@ -82,10 +78,12 @@ class Controlling extends Component {
                 'icon' => 'info',
                 'message' => 'Menunggu respon dari sensor...'
             ]);
-            $data->slot->update([
-                'status_respon' => '0'
-            ]);
+            $update = '0';
         }
+        sleep(3);
+        $data->slot->update([
+            'status_respon' => $update
+        ]);
     }
 
     public function controlUpdate($id) {
