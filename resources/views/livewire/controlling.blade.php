@@ -1,24 +1,22 @@
-<div class="card" wire:poll>
-    <div class="card-header text-bg-dark">
-        <h4 class="text-center fw-bold">
-            Kontrol Slot Parkir
-        </h4>
-    </div>
-    <div class="card-body">
-        <form action="{{ route('control.update') }}" method="post" class="text-center">
-            @csrf
-            <input type="hidden" name="id" value="{{ $data->id }}">
+<div wire:poll.500ms>
+    <div class="card">
+        <div class="card-header text-bg-dark">
+            <h4 class="text-center fw-bold">
+                Kontrol Slot Parkir
+            </h4>
+        </div>
+        <div class="card-body text-center">
             <div class="mb-3 row">
                 <label for="kode_transaksi" class="form-label fw-bold">Kode Transaksi</label>
                 <div class="col-12">
-                    <input class="form-control form-control-sm form-control-plaintext text-center" readonly
-                        type="text" name="kode_transaksi" id="kode_transaksi" value="{{ $data->kode_transaksi }}">
+                    <input class="form-control form-control-sm form-control-plaintext text-center" readonly type="text"
+                        id="kode_transaksi" value="{{ $data->kode_transaksi }}">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="status" class="form-label fw-bold">Status Aktif</label>
                 <div class="col-12">
-                    <span class="badge bg-{{ $data->status ? 'danger' : 'success' }}">
+                    <span id="status" class="badge bg-{{ $data->status ? 'danger' : 'success' }}">
                         {{ $data->status ? 'Selesai' : 'Aktif' }}
                     </span>
                 </div>
@@ -26,15 +24,15 @@
             <div class="mb-3 row">
                 <label for="palang_status" class="form-label fw-bold">Status Palang</label>
                 <div class="col-12">
-                    <input type="hidden" name="status_pakai" value="{{ $data->slot->status_pakai }}">
-                    <span class="badge {{ $this->statusAttributes['class'] }}">
+                    <span id="palang_status" class="badge {{ $this->statusAttributes['class'] }}">
                         {{ $this->statusAttributes['label'] }}
                     </span>
                 </div>
             </div>
             <div class="d-grid gap-2">
                 @if ($data->status == 0)
-                    <button class="btn btn-sm btn-outline-dark fw-bold" type="submit">
+                    <button class="btn btn-sm btn-outline-dark fw-bold"
+                        wire:click='controlUpdate("{{ $data->id }}")'>
                         {{ $this->statusAttributes['button'] }}
                     </button>
                 @endif
@@ -42,13 +40,16 @@
                     Kembali
                 </a>
             </div>
-        </form>
+        </div>
     </div>
+</div>
+
+@push('custom-js')
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             setInterval(() => {
                 @this.call('notification', {{ $data->id }});
-            }, 1000);
+            }, 500);
 
             window.addEventListener('notificationEvent', event => {
                 const message = event.detail.message;
@@ -61,4 +62,4 @@
             });
         });
     </script>
-</div>
+@endpush
