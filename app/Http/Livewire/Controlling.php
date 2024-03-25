@@ -60,6 +60,7 @@ class Controlling extends Component {
                 'icon' => 'info',
                 'message' => 'Menunggu respon dari sensor...'
             ]);
+            sleep(3);
             $data->slot->update([
                 'status_respon' => '0'
             ]);
