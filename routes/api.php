@@ -8,5 +8,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('slot/status/{id}', [ParkingSlotController::class, 'slotStatus']);
+Route::get('slot/status', [ParkingSlotController::class, 'slotStatus']);
 Route::post('slot/update', [ParkingSlotController::class, 'slotUpdate']);

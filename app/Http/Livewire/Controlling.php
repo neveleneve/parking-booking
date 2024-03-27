@@ -58,12 +58,12 @@ class Controlling extends Component {
             if ($data->slot->status_pakai == '0' || $data->slot->status_pakai == '2') {
                 $notification = [
                     'title' => 'Membuka Palang Pintu',
-                    'message' => 'Menunggu respon dari sensor...',
+                    'message' => 'Menunggu respon dari sensor. Jangan tinggalkan halaman ini...',
                 ];
             } elseif ($data->slot->status_pakai == '1' || $data->slot->status_pakai == '3') {
                 $notification = [
                     'title' => 'Menutup Palang Pintu',
-                    'message' => 'Menunggu respon dari sensor...',
+                    'message' => 'Menunggu respon dari sensor. Jangan tinggalkan halaman ini...',
                 ];
             }
             $this->dispatchBrowserEvent('notificationEvent', [
