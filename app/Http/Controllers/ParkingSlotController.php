@@ -14,7 +14,7 @@ class ParkingSlotController extends Controller {
         ]);
         if ($validate->fails()) {
             return response()->json([
-                'message' => 'Data failed to receive',
+                'message' => 'Validation failed!',
                 'data' => null,
                 'response' => 401,
             ], 401);
@@ -22,7 +22,7 @@ class ParkingSlotController extends Controller {
             $slot = Slot::find($request->id);
             if (!$slot) {
                 return response()->json([
-                    'message' => 'Data failed receive',
+                    'message' => 'Slot is not found!',
                     'data' => null,
                     'response' => 404,
                 ], 404);
@@ -42,14 +42,14 @@ class ParkingSlotController extends Controller {
                         ], 200);
                     } else {
                         return response()->json([
-                            'message' => 'Data failed to receive',
+                            'message' => 'Token is not recognized!',
                             'data' => null,
                             'response' => 401,
                         ], 401);
                     }
                 } else {
                     return response()->json([
-                        'message' => 'Data failed to receive',
+                        'message' => 'Token is not found!',
                         'data' => null,
                         'response' => 401,
                     ], 401);
