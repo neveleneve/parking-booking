@@ -61,8 +61,7 @@ class ParkingSlotController extends Controller {
     public function slotUpdate(Request $request) {
         $validate = Validator::make($request->all(), [
             'id' => 'required|integer',
-            'status_palang' => 'required|integer',
-            'status_sensor' => 'required|integer',
+            'status_respon' => 'required|integer',
             'token' => 'required|string|size:10'
         ]);
         if ($validate->fails()) {
@@ -75,37 +74,39 @@ class ParkingSlotController extends Controller {
             $slot = Slot::find($request->id);
             if (!$slot) {
                 return response()->json([
-                    'message' => 'Data failed update',
+                    'message' => 'Slot is not found!',
                     'data' => null,
                     'response' => 404,
                 ], 404);
             } else {
                 if ($request->has('token')) {
                     if ($request->token == $slot->token) {
-                        // proses update
-
-                        // respons
+                        if ($request->status_respon == 3 || $request->status_respon == 4) {
+                            $slot->update([
+                                'status_respon' => $request->status_respon
+                            ]);
+                        } else {
+                            return response()->json([
+                                'message' => 'Response not found!',
+                                'data' => null,
+                                'response' => 200,
+                            ], 200);
+                        }
                         return response()->json([
-                            'message' => 'Data received successfully',
-                            'data' => [
-                                'id' => $slot->id,
-                                'token' => $slot->token,
-                                'status_pakai' => $slot->status_pakai,
-                                'status_respon' => $slot->status_respon,
-                                'status' => $slot->status,
-                            ],
+                            'message' => 'Data updated successfully',
+                            'data' => null,
                             'response' => 200,
                         ], 200);
                     } else {
                         return response()->json([
-                            'message' => 'Data failed to update',
+                            'message' => 'Token is not recognized!',
                             'data' => null,
                             'response' => 401,
                         ], 401);
                     }
                 } else {
                     return response()->json([
-                        'message' => 'Data failed to update',
+                        'message' => 'Token is not found',
                         'data' => null,
                         'response' => 401,
                     ], 401);
