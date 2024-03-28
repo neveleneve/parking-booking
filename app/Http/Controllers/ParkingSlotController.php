@@ -85,6 +85,11 @@ class ParkingSlotController extends Controller {
                             $slot->update([
                                 'status_respon' => $request->status_respon
                             ]);
+                            return response()->json([
+                                'message' => 'Data updated successfully',
+                                'data' => null,
+                                'response' => 200,
+                            ], 200);
                         } else {
                             return response()->json([
                                 'message' => 'Response not found!',
@@ -92,11 +97,6 @@ class ParkingSlotController extends Controller {
                                 'response' => 200,
                             ], 200);
                         }
-                        return response()->json([
-                            'message' => 'Data updated successfully',
-                            'data' => null,
-                            'response' => 200,
-                        ], 200);
                     } else {
                         return response()->json([
                             'message' => 'Token is not recognized!',
