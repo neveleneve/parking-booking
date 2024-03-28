@@ -79,25 +79,25 @@ class Controlling extends Component {
                 case '0':
                     $notification = [
                         'title' => 'Gagal Membuka Palang Pintu!',
-                        'message' => 'Sensor masih mendeteksi adanya objek!',
+                        'message' => 'Sensor masih mendeteksi adanya objek! Silahkan ulangi proses buka palang pintu!',
                     ];
                     break;
                 case '1':
                     $notification = [
                         'title' => 'Gagal Menutup Palang Pintu!',
-                        'message' => 'Sensor tidak mendeteksi adanya objek',
+                        'message' => 'Sensor tidak mendeteksi adanya objek! Silahkan ulangi proses tutup palang pintu!',
                     ];
                     break;
                 case '2':
                     $notification = [
                         'title' => 'Gagal Membuka Palang Pintu!',
-                        'message' => 'Sensor masih mendeteksi adanya objek!',
+                        'message' => 'Sensor masih mendeteksi adanya objek! Silahkan ulangi proses buka palang pintu!',
                     ];
                     break;
                 case '3':
                     $notification = [
                         'title' => 'Gagal Menutup Palang Pintu!',
-                        'message' => 'Sensor tidak mendeteksi adanya objek',
+                        'message' => 'Sensor tidak mendeteksi adanya objek! Silahkan ulangi proses tutup palang pintu!',
                     ];
                     break;
                 default:
@@ -180,7 +180,7 @@ class Controlling extends Component {
                 'message' => $notification['message']
             ]);
         }
-        if (count($update) != 0) {
+        if (!empty($update)) {
             $data->slot->update($update);
         }
     }
