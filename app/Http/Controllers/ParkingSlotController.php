@@ -34,9 +34,9 @@ class ParkingSlotController extends Controller {
                             'data' => [
                                 'id' => $slot->id,
                                 'token' => $slot->token,
-                                'status_pakai' => $slot->status_pakai,
-                                'status_respon' => $slot->status_respon,
-                                'status' => $slot->status,
+                                'status_pakai' => (int)$slot->status_pakai,
+                                'status_respon' => (int)$slot->status_respon,
+                                'status' => (int)$slot->status,
                             ],
                             'response' => 200,
                         ], 200);
