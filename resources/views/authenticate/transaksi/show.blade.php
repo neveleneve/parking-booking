@@ -43,14 +43,14 @@
                             <label class="fw-bold" for="date_in">Tanggal Masuk</label>
                             <div class="col-12">
                                 <input type="text" id="date_in" class="form-control" readonly
-                                    value="{{ $transaksi->jam_masuk == null ? '-' : date_format($transaksi->jam_masuk, 'd/m/Y H:i:s') }}">
+                                    value="{{ $transaksi->jam_masuk == null ? '-' : date_format(new DateTime($transaksi->jam_masuk), 'd/m/y H:i:s') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label class="fw-bold" for="date_off">Tanggal Keluar</label>
                             <div class="col-12">
                                 <input type="text" id="date_off" class="form-control" readonly
-                                    value="{{ $transaksi->jam_keluar == null ? '-' : date_format($transaksi->jam_keluar, 'd/m/Y H:i:s') }}">
+                                    value="{{ $transaksi->jam_keluar == null ? '-' : date_format(new DateTime($transaksi->jam_keluar), 'd/m/y H:i:s') }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
