@@ -44,6 +44,8 @@
                                     </div>
                                 </div>
                             </div>
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
                             <div class="row mb-0">
                                 <div class="col-12 col-md-6 offset-md-4 d-grid gap-2 mb-3">
                                     <button type="submit" class="btn btn-outline-dark fw-bold">
