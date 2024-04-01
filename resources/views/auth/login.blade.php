@@ -48,6 +48,11 @@
                                 <div class="col-12 col-md-6 offset-md-4 mb-3">
                                     {!! NoCaptcha::renderJs() !!}
                                     {!! NoCaptcha::display() !!}
+                                    @error('g-recaptcha-response')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-0">
