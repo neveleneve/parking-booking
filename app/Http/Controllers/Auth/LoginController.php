@@ -38,7 +38,7 @@ class LoginController extends Controller {
     }
 
     protected function credentials(Request $request) {
-        return $request->only($this->username(), 'password', 'g-recaptcha-response');
+        return $request->only($this->username(), 'password');
     }
 
     protected function validateLogin(Request $request) {
