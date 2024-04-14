@@ -16,8 +16,8 @@ class ParkingSlotController extends Controller {
             return response()->json([
                 'message' => 'Validation failed!',
                 'data' => null,
-                'response' => 401,
-            ], 401);
+                'response' => 400,
+            ], 400);
         } else {
             $slot = Slot::find($request->id);
             if (!$slot) {
@@ -68,8 +68,8 @@ class ParkingSlotController extends Controller {
             return response()->json([
                 'message' => 'Data failed to update',
                 'data' => null,
-                'response' => 401,
-            ], 401);
+                'response' => 400,
+            ], 400);
         } else {
             $slot = Slot::find($request->id);
             if (!$slot) {
@@ -94,8 +94,8 @@ class ParkingSlotController extends Controller {
                             return response()->json([
                                 'message' => 'Response not found!',
                                 'data' => null,
-                                'response' => 200,
-                            ], 200);
+                                'response' => 422,
+                            ], 422);
                         }
                     } else {
                         return response()->json([
