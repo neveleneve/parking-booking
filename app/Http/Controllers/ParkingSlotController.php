@@ -32,11 +32,11 @@ class ParkingSlotController extends Controller {
                         return response()->json([
                             'message' => 'Data received successfully',
                             'data' => [
-                                'id' => $slot->id,
-                                'token' => $slot->token,
-                                'status_pakai' => (int)$slot->status_pakai,
-                                'status_respon' => (int)$slot->status_respon,
-                                'status' => (int)$slot->status,
+                                'id' => (int) $slot->id,
+                                'token' => (string) $slot->token,
+                                'status_pakai' => (int) $slot->status_pakai,
+                                'status_respon' => (int) $slot->status_respon,
+                                'status' => (int) $slot->status,
                             ],
                             'response' => 200,
                         ], 200);
@@ -87,7 +87,7 @@ class ParkingSlotController extends Controller {
                             ]);
                             return response()->json([
                                 'message' => 'Data updated successfully',
-                                'data' => null,
+                                'data' => 'success',
                                 'response' => 200,
                             ], 200);
                         } else {
