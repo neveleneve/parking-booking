@@ -57,21 +57,9 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    @if (Auth::user()->level == 0)
-                                        <td colspan="7" class="d-none d-lg-table-cell">
-                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                        </td>
-                                        <td colspan="4" class="d-table-cell d-lg-none">
-                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                        </td>
-                                    @else
-                                        <td colspan="6" class="d-none d-lg-table-cell">
-                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                        </td>
-                                        <td colspan="4" class="d-table-cell d-lg-none">
-                                            <h3 class="text-center fw-bold h5">Data Pembayaran Kosong</h3>
-                                        </td>
-                                    @endif
+                                    <td colspan="7">
+                                        <h3 class="text-center fw-bold">Data Pembayaran Kosong</h3>
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>

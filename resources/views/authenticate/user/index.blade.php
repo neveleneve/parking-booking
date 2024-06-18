@@ -22,12 +22,17 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>Rp {{ number_format($item->saldo->credit, 0, ',', '.') }}</td>
-                                <td> </td>
+                                <td>
+                                    <a href="{{ route('user.show', ['user' => $item->id]) }}"
+                                        class="btn btn-sm btn-outline-dark">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="5">
-                                    <h3 class="text-center fw-bold h5">Data Transaksi Kosong</h3>
+                                    <h3 class="text-center fw-bold">Data Transaksi Kosong</h3>
                                 </td>
                             </tr>
                         @endforelse

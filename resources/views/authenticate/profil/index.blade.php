@@ -7,7 +7,8 @@
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="card profile-card shadow">
                     <div class="profile-image text-center">
-                        <img class="img-fluid" src="{{ asset('image/profile/default.png') }}" alt="Profile Photo">
+                        <img class="img-fluid" src="{{ Auth::user()->getUrlfriendlyAvatar() }}">
+
                     </div>
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold">{{ Auth::user()->name }}</h5>
@@ -35,21 +36,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('custom-css')
-    <style>
-        .profile-card {
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 20px;
-        }
-    </style>
 @endsection
