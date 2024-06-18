@@ -28,8 +28,32 @@
                         <h6 class="h6 text-center fw-bold">Booking-an Kamu</h6>
                     </div>
                     <div class="card-body">
-                        {{-- ubah disini untuk transaksi aktif --}}
-                        <h3 class="text-center fw-bold">Tidak Ada Booking-an Aktif</h3>
+                        @if (count($data->transaksi) > 0)
+                            @php
+                                $jumlah = 0;
+                            @endphp
+                            @foreach ($data->transaksi as $item)
+                                @if ($item->status == 0)
+                                    @php
+                                        $jumlah++;
+                                    @endphp
+                                @endif
+                            @endforeach
+                            @if ($jumlah > 0)
+                                <h3 class="text-center fw-bold">
+                                    Terdapat {{ $jumlah }} Transaksi Pemesanan yang aktif
+                                </h3>
+                                <div class="d-grid gap-2">
+                                    <a class="btn btn-sm btn-outline-dark fw-bold" href="{{ route('transaksi.index') }}">
+                                        Transaksi
+                                    </a>
+                                </div>
+                            @else
+                                <h3 class="text-center fw-bold">Tidak Ada Booking-an Aktif</h3>
+                            @endif
+                        @else
+                            <h3 class="text-center fw-bold">Tidak Ada Booking-an Aktif</h3>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@
                         <h6 class="h6 text-center fw-bold">Pemesanan Hari ini</h6>
                     </div>
                     <div class="card-body">
-                        <h3 class="text-center fw-bold">0 Pemesanan</h3>
+                        <h3 class="text-center fw-bold">{{ count($data) }} Pemesanan</h3>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                         <h6 class="h6 text-center fw-bold">Pemasukan Hari ini</h6>
                     </div>
                     <div class="card-body">
-                        <h3 class="text-center fw-bold">Rp -</h3>
+                        <h3 class="text-center fw-bold">Rp {{ number_format(count($data) * 20000, 0, ',', '.') }}</h3>
                     </div>
                 </div>
             </div>

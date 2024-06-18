@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="content">
-        @guest
+        {{-- @guest
         @else
             @include('layouts.navtab')
-        @endguest
+        @endguest --}}
         <div class="row">
 
         </div>

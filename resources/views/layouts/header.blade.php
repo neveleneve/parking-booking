@@ -35,6 +35,12 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
+                        <a href="{{ route('dashboard.index') }}" class="dropdown-item">
+                            <i class="fas fa-gauge me-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item" href="#"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt me-2"></i>

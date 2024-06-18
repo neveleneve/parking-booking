@@ -81,3 +81,14 @@
         </div>
     </div>
 @endsection
+
+@push('livewire-style')
+    <style type="text/css">
+        .g-recaptcha {
+            transform: scale(0.77);
+            -webkit-transform: scale(0.77);
+            transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+        }
+    </style>
+@endpush
