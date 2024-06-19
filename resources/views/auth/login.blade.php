@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-12 col-md-6 offset-md-4 mb-3">
+                                <div class="col-12 col-md-6 offset-md-4">
                                     {!! NoCaptcha::renderJs() !!}
                                     {!! NoCaptcha::display() !!}
                                     @error('g-recaptcha-response')
@@ -81,14 +81,3 @@
         </div>
     </div>
 @endsection
-
-@push('livewire-style')
-    <style type="text/css">
-        .g-recaptcha {
-            transform: scale(0.77);
-            -webkit-transform: scale(0.77);
-            transform-origin: 0 0;
-            -webkit-transform-origin: 0 0;
-        }
-    </style>
-@endpush

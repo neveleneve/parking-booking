@@ -41,3 +41,10 @@ body {
     overflow: hidden;
     margin: 0 auto 20px;
 }
+
+.g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}

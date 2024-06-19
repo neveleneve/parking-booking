@@ -10,7 +10,7 @@
                         <h6 class="h6 text-center fw-bold">Saldo Kamu</h6>
                     </div>
                     <div class="card-body">
-                        <h3 class="text-center fw-bold">Rp {{ number_format($data->saldo->credit, 2, ',', '.') }}</h3>
+                        <h3 class="text-center fw-bold">Rp {{ number_format($data->saldo->credit, 0, ',', '.') }}</h3>
                         <div class="row">
                             <div class="col-12 d-grid gap-2">
                                 <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal"
