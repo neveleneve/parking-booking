@@ -48,3 +48,26 @@ body {
     transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
 }
+
+.pull-to-refresh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.pull-to-refresh .fa-spinner {
+    font-size: 30px;
+    /* Adjust the icon size as desired */
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

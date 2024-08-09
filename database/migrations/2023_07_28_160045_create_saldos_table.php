@@ -4,19 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSaldosTable extends Migration
-{
+class CreateSaldosTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('saldos', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->float('credit')->default(0.0)->nullable();
+            // revision on here (data type of credit)
+            $table->integer('credit')->default(0)->nullable();
             $table->timestamps();
         });
     }
@@ -26,8 +25,7 @@ class CreateSaldosTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('saldos');
     }
 }

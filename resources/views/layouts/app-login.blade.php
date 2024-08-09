@@ -9,35 +9,6 @@
     <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @stack('custom-css')
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .pull-to-refresh {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-        }
-
-        .pull-to-refresh .fa-spinner {
-            font-size: 30px;
-            /* Adjust the icon size as desired */
-            animation: spin 1s infinite linear;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
     @stack('livewire-style')
 </head>
 
