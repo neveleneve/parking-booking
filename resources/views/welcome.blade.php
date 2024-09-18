@@ -59,23 +59,23 @@
                     </a>
                 </div>
             @else
-                <div class="col-6 col-lg-4 bg-dark rounded-5 text-center">
-                    <a href="{{ route('landing-page') }}"
-                        class="text-light link-offset-2 link-underline link-underline-opacity-0">
-                        <i class="fa fa-right-to-bracket"></i>
-                        <p class="fw-bold mb-1">Dashboard</p>
-                    </a>
-                </div>
-                <div class="col-6 col-lg-4 bg-dark text-light rounded-5 text-center">
+                <div class="col-6 col-lg-4 bg-dark rounded-5 text-center mb-3">
                     <a href="{{ route('login') }}" class="text-light link-offset-2 link-underline link-underline-opacity-0">
                         <i class="fa fa-right-to-bracket"></i>
                         <p class="fw-bold mb-1">Login</p>
                     </a>
                 </div>
-                <div class="col-6 col-lg-4 bg-dark text-light rounded-5 text-center">
+                <div class="col-6 col-lg-4 bg-dark rounded-5 text-center mb-3">
                     <a href="{{ route('register') }}" class="text-light link-offset-2 link-underline link-underline-opacity-0">
                         <i class="fa fa-user-plus"></i>
                         <p class="fw-bold mb-1">Register</p>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-4 bg-dark rounded-5 text-center mb-3">
+                    <a href="{{ route('landing-page') }}"
+                        class="text-light link-offset-2 link-underline link-underline-opacity-0">
+                        <i class="fa fa-right-to-bracket"></i>
+                        <p class="fw-bold mb-1">Dashboard</p>
                     </a>
                 </div>
             @endauth
