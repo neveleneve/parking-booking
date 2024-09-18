@@ -71,7 +71,7 @@
                                         Saldo anda akan dikurangin setelah melakukan pemesanan.
                                     </label>
                                 </div>
-                            @endif
+W                            @endif
                             <div class="d-grid gap-2">
                                 @if ($saldo->credit >= 20000)
                                     <button type="submit" class="btn btn-sm btn-outline-dark">Pesan</button>
