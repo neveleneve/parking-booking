@@ -47,7 +47,7 @@
                 <div class="col-6 col-lg-4 bg-dark rounded-5 text-center mb-3">
                     <a href="{{ route('transaksi.index') }}"
                         class="text-light link-offset-2 link-underline link-underline-opacity-0">
-                        <i class="fa fa-dollar-receipt"></i>
+                        <i class="far fa-receipt"></i>
                         <p class="fw-bold mb-1">Transaksi</p>
                     </a>
                 </div>
